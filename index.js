@@ -5,7 +5,7 @@ const resolvers = require('./graphql_server/resolvers');
 
 const server = new ApolloServer({
                 typeDefs,
-                resolver
+                resolvers
             });
 
 server.listen(4000);
