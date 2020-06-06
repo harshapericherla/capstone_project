@@ -1,4 +1,5 @@
-// const mongoose = require('mongoose');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 const userJobSchema = new Schema({
 
@@ -8,14 +9,12 @@ const userJobSchema = new Schema({
         type : Schema.Types.ObjectId,
         ref : 'jobSchema',
     },
-      email: {
-        type: String,
-        required: true,
-        trim: true,
-        unique: true,
-      }
-      
-
+    email: {
+      type: String,
+      required: true,
+      trim: true,
+      unique: true,
+    }
 });
-// mongoose.model('',userJobSchema);
+mongoose.model('UserJob',userJobSchema);
 

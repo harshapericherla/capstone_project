@@ -1,34 +1,33 @@
-// const mongoose = require('mongoose');
-
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 const jobSchema = new Schema({
 
-    jobID : Number,
-    _postedBy : {
-        type : Schema.Types.ObjectId,
-        ref : 'userSchema',
-    },
-    jobName : {
+      _postedBy : {
+          type : Schema.Types.ObjectId,
+          ref : 'userSchema',
+      },
+     name : {
         type: String,
         required: true,
         trim: true,
       },
-      jobLocation : {
+      location : {
         type: String,
         required: true,
         trim: true,
       },
-      jobType : {
+      type : {
         type: String,
         required: true,
         trim: true,
       },
-      jobDescription : {
+      description : {
         type: String,
         required: true,
         trim: true,
       },
-      Roles_Responsibiltes : {
+      roles_Responsibiltes : {
         type: String,
         required: true,
         trim: true,
@@ -43,9 +42,8 @@ const jobSchema = new Schema({
         type: String,
         required: true,
         trim: true,
-      },  
-
+      }
 });
 
-// mongoose.model('',jobSchema);
+mongoose.model('Job',jobSchema);
 

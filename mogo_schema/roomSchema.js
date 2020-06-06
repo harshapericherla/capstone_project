@@ -1,8 +1,8 @@
-// const mongoose = require('mongoose');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const userJobSchema = new Schema({
+const roomSchema = new Schema({
 
-    roomID : Number,
     toID : {
         type : Schema.Types.ObjectId,
         ref : 'userSchema',
@@ -14,10 +14,7 @@ const userJobSchema = new Schema({
     jobID : {
         type : Schema.Types.ObjectId,
         ref : 'jobSchema',
-    },
-      
-      
-
+    }
 });
-// mongoose.model('',roomSchema);
+mongoose.model('Room',roomSchema);
 

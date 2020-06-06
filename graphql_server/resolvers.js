@@ -1,5 +1,10 @@
+const mongoose = require('mongoose');
+const {getJobs} = require('./resolvers/QueryResolver');
+
 module.exports = {
     Query: {
-        jobs: (_,__,{dataSources}) => [{id:1},{id:2}]
+        jobs: async (_,__,{dataSources}) => { 
+            return await getJobs();
+        }
     }
 }
