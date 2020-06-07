@@ -4,15 +4,15 @@ const typeDefs = gql`
 
     type User
     {
-        id: ID!
-        userName: String
+        _id: ID!
+        name: String
     }
 
     type Job
     {
-        id: ID!
+        _id: ID!
         name: String
-        posted_by: ID
+        posted_by: User
     }
 
     input JobInput
