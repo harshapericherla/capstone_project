@@ -1,0 +1,7 @@
+
+@mixin h1-style {
+    font-size: 20px;
+}
+h1{
+    @include h1-style();
+}
