@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+    $color-button:#2196F3;
+    
+    @mixin buttonColor($width) {
+    
+        font-family:Roboto, sans-serif;
+        width: $width;
+        color:white;
+        font-size:14px;
+        text-transform:uppercase;
+        font-weight:700;
+        letter-spacing: 1px;
+        border:1px solid $color-button;
+        height:45px;
+        margin-top: 10px;
+        padding:0 16px;
+        border-radius:2px;
+        background-color: $color-button;
+        box-shadow:0 1px 3px lighten(black, 60%);
+    
+    }
+
+    @mixin displayFlexRow(){
+        display: flex;
+        flex-direction: row;
+    }
+
+    @mixin  displayFlexColumn (){
+        display: flex;
+        flex-direction: column;
+    }

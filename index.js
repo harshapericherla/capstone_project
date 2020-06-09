@@ -15,4 +15,4 @@ const server = new ApolloServer({
 
 server.applyMiddleware({app});
 require('./webpackinit')(app);
-app.listen(5000);
+app.listen(5000,'0.0.0.0');
