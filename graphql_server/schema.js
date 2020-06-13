@@ -13,6 +13,10 @@ const typeDefs = gql`
         _id: ID!
         name: String
         posted_by: User
+        location:String
+        type:String
+        description:String
+        companyName:String
     }
 
     input JobInput
