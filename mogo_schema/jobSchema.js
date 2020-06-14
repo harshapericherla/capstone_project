@@ -38,7 +38,7 @@ const jobSchema = new Schema({
         type: String,
         required: true,
         trim: true,
-      },
+      }
 });
 
 mongoose.model('Job',jobSchema);

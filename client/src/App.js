@@ -1,10 +1,13 @@
-import React, { Component } from 'react'
-import JobsList from './JobsList'
+
+import {Jobs} from './jobs/Jobs';
+import React, { Component } from 'react';
 
 export default class App extends Component {
     render() {
         return (
-            <JobsList/>
+            <div>
+                <Jobs/>
+            </div>
         )
     }
 }

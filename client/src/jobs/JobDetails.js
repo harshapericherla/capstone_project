@@ -1,68 +1,6 @@
-import React, { Component,Fragment } from 'react';
-import { useQuery } from "@apollo/react-hooks";
-import gql from "graphql-tag";
-import '../assets/sass/list.scss';
-
-const GET_LAUNCHES = gql`
-query jobQuery{
-    jobs{
-      _id
-      name
-      location
-      type
-      description
-      companyName
-      posted_by
-      {
-        _id
-        name
-      }
-    }
-  }
-`;
-
-
-const JobsList = () => {
-    const { data, loading, error } = useQuery(GET_LAUNCHES);
-  
-    if (loading) return <p>Loading</p>;
-    if (error) return <p>ERROR</p>;
-    if (!data) return <p>Not found</p>;
-  
-    return (
-      <Fragment>
-        <div id ="flexContent">
-          <div class = "abc">
-        {data.jobs && data.jobs.map(job => (
-          
-            <div class = "listContent">
-              <div id = "cards">
-                <div class = "flex-card">
-                  <div id = "circle">
-                    <div class = "circle">
-                      <span>A</span>
-                    </div>
-                    <div class = "name">
-                      <p>{job.companyName}</p>
-                      <div class = "location">
-                        <p>{job.location}</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class ="description">
-                            <span class = "role">{job.name}</span>
-                            <span class = "desc">{job.description}</span>
-                  </div>
-                  <hr></hr>
-                  <div class= "type">
-                            <span class = "jobtype">{job.type}</span>
-                            <span class = "time">6 hours ago</span>
-                        </div>
-                </div>
-              </div>
-            </div> 
-        ))}
-        </div>
+import React from 'react'
+export const JobDetails = () => {
+    return(
         <div class = "showJobContent">
                 <div id = "stickyContent">
                     <span class = "jobName">
@@ -113,9 +51,6 @@ const JobsList = () => {
                 </div>
         
               </div>
-              </div>
-      </Fragment>
+       
     );
-  };
-  
-  export default JobsList;
+}

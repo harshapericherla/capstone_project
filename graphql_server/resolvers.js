@@ -1,10 +1,12 @@
-const mongoose = require('mongoose');
-const {getJobs} = require('./resolvers/QueryResolver');
+const {JobResolver} = require('./schemas/jobSchema');
+const _ = require('lodash');
 
-module.exports = {
+const resolvers = {
     Query: {
-        jobs: async (_,__,{dataSources}) => { 
-            return await getJobs();
-        }
+
     }
 }
+
+const finalResolver = _.merge(resolvers,JobResolver);
+
+module.exports = finalResolver;

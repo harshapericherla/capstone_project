@@ -1,45 +1,15 @@
 const { gql } = require('apollo-server');
 
+const {Job} = require('./schemas/jobSchema');
+const {User} = require('./schemas/userSchema');
+
 const typeDefs = gql`
-
-    type User
-    {
-        _id: ID!
-        name: String
-    }
-
-    type Job
-    {
-        _id: ID!
-        name: String
-        posted_by: User
-        location:String
-        type:String
-        description:String
-        companyName:String
-    }
-
-    input JobInput
-    {
-        id: ID!
-        name: String
-        posted_by: ID
-    }
-
-    type MutationResponse {
-        success: Boolean!
-        message: String
-    }
 
     type Query
     {
-        jobs(userId: String): [Job]!
+        _empty:String
     }
 
-    type Mutation
-    {
-        createJob(job: JobInput!): MutationResponse
-    }
 `;
 
-module.exports = typeDefs;
+module.exports = [typeDefs,Job,User];
