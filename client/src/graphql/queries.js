@@ -17,3 +17,18 @@ query jobQuery{
     }
   }
 `;
+
+export const SEARCH_JOBS = gql`
+query searchQuery($searchText:String!)
+{
+  searchJobs(searchText:$searchText){
+    _id
+    companyName
+    name
+    posted_by{
+      _id
+      name
+    }
+  }
+}
+`

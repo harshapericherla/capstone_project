@@ -5,11 +5,15 @@ import {JobDetails} from './JobDetails';
 import {JobsList} from './JobsList';
 import React,{Fragment} from 'react';
 import {Search} from './Search';
+import { withApollo } from 'react-apollo';
 
 export const Jobs = () => {
+
+    const SearchApollo = withApollo(Search);
+    
     return(
         <Fragment>
-            <Search />
+            <SearchApollo/>
             <div id ="flexContent">
                 <JobsList />
                 <JobDetails />

@@ -4,6 +4,7 @@ import {GET_JOBS} from '../graphql/queries';
 import React from 'react';
 
 export const JobsList = () => {
+
     const { data, loading, error } = useQuery(GET_JOBS);
   
     if (loading) return <p>Loading</p>;
