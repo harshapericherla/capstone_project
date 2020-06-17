@@ -1,6 +1,7 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 const config = {
     entry: {
@@ -55,7 +56,8 @@ const config = {
         }),
         new HtmlWebpackPlugin({
             template:'webpack-template.html'
-        })
+        }),
+        new Dotenv()
     ],
     optimization: {
         splitChunks: {

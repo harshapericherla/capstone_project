@@ -1,8 +1,8 @@
 import gql from "graphql-tag";
 
 export const GET_JOBS = gql`
-query jobQuery{
-    jobs{
+query jobQuery($pageNumber:Int,$pageLimit:Int){
+    jobs(pageNum:$pageNumber,pageLimit:$pageLimit){
       _id
       name
       location
@@ -23,12 +23,22 @@ query searchQuery($searchText:String!)
 {
   searchJobs(searchText:$searchText){
     _id
-    companyName
     name
+    location
+    type
+    description
+    companyName
     posted_by{
       _id
       name
     }
   }
+}
+`
+
+export const GET_TOTAL_PAGINATION = gql`
+query paginateQuery($pageLimit:Int)
+{
+   jobPagination(pageLimit:$pageLimit)
 }
 `

@@ -1,20 +1,29 @@
 import {Fragment} from 'react';
 import { useQuery } from "@apollo/react-hooks";
-import {GET_JOBS} from '../graphql/queries';
+import {GET_JOBS} from '../../graphql/queries';
 import React from 'react';
+import { JobsPagination } from './JobsPagination';
+import { useSelector, useDispatch } from 'react-redux';
+import {FETCH_JOBS} from '../../actions/types';
 
 export const JobsList = () => {
 
-    const { data, loading, error } = useQuery(GET_JOBS);
-  
+    const {jobs} = useSelector(state => state.jobs);
+    const dispatch = useDispatch();
+    const limit = parseInt(process.env.PAGINATION_LIMIT);
+    const { data, loading, error } = useQuery(GET_JOBS,{variables:{pageNumber:1,pageLimit:limit}});
     if (loading) return <p>Loading</p>;
     if (error) return <p>ERROR</p>;
     if (!data) return <p>Not found</p>;
-  
+    
+    if(data && !jobs)
+    {
+       dispatch({type:FETCH_JOBS,payload:data});
+    }
     return (
       <Fragment>
           <div>
-            {data.jobs && data.jobs.map(job => (
+            {jobs && jobs.map(job => (
                 <div class = "listContent">
                   <div id = "cards">
                     <div class = "flex-card">
@@ -45,15 +54,7 @@ export const JobsList = () => {
                   </div>
                 </div> 
             ))}
-            <div class="pagination">
-              <a href="#">&laquo;</a>
-              <a href="#" class="active">1</a>
-              <a href="#">2</a>
-              <a href="#">3</a>
-              <a href="#">4</a>
-              <a href="#">5</a>
-              <a href="#">&raquo;</a>
-            </div>
+          <JobsPagination/>
           </div>
               
       </Fragment>
