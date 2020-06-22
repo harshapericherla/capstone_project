@@ -1,4 +1,4 @@
-const {getJobs,searchJobs,paginateJobs} = require('../resolvers/jobResolver');
+const {getJobs} = require('../resolvers/jobResolver');
 const {getUserById} = require('../resolvers/userResolver');
 
 
@@ -6,11 +6,23 @@ exports.Job = `
     
     extend type Query
     {
-        jobs(pageNum:Int,pageLimit:Int): [Job]!
+        jobs(searchInput:JobInput): JobResult
         searchJobs(searchText: String): [Job]!
         jobPagination(pageLimit: Int): Int
     }
-
+    
+    input JobInput
+    {
+        pageNum:Int
+        pageLimit:Int
+        searchTxt: String
+        searchLocation: String
+    }
+    type JobResult
+    {
+        jobs:[Job]!
+        pages: Int
+    }
     type Job
     {
         _id: ID!
@@ -27,14 +39,9 @@ exports.Job = `
 
 exports.JobResolver = {
     Query:{
-        jobs: async (_,{pageNum,pageLimit},{dataSources}) => { 
-            return await getJobs(pageNum,pageLimit);
-        },
-        searchJobs: async(_,{searchText}) => {
-            return await searchJobs(searchText);
-        },
-        jobPagination:async (_,{pageLimit}) => {
-            return await paginateJobs(pageLimit);
+        jobs: async (_,{searchInput},{dataSources}) => { 
+            let {pageNum,pageLimit,searchTxt,searchLocation} = searchInput;
+            return await getJobs(pageNum,pageLimit,searchTxt,searchLocation);
         }
     },
     Job : {

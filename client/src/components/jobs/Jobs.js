@@ -5,6 +5,7 @@ import {JobDetails} from './JobDetails';
 import {JobsList} from './JobsList';
 import React,{Fragment} from 'react';
 import {Search} from './Search';
+import { JobsPagination } from './JobsPagination';
 
 
 export const Jobs = () => {
@@ -15,6 +16,7 @@ export const Jobs = () => {
             <div id ="flexContent">
                 <JobsList />
                 <JobDetails />
+                <JobsPagination/>
             </div>
         </Fragment>
     );

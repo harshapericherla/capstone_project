@@ -1,37 +1,39 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useQuery, useLazyQuery } from "@apollo/react-hooks";
-import {GET_TOTAL_PAGINATION, GET_JOBS} from '../../graphql/queries';
-import { FETCH_PAGINATION, FETCH_JOBS } from '../../actions/types';
+import { useLazyQuery } from "@apollo/react-hooks";
+import { GET_JOBS} from '../../graphql/queries';
+import {FETCH_JOBS, FETCH_PAGINATION, SELECT_JOB } from '../../actions/types';
 
 export const JobsPagination = () => {
 
-    const [active,setActive] = useState(1);
+    const [tmpData,setTmpData] = useState(false);
     const limit = parseInt(process.env.PAGINATION_LIMIT);
 
-    const {pagination} = useSelector(state => state.pagination);
+    const {pagination,pageActive} = useSelector(state => state.pagination);
+    const {filter} = useSelector(state => state.searchFilter)
     const dispatch = useDispatch();
-    
-    const { data } = useQuery(GET_TOTAL_PAGINATION,{variables:{pageLimit:limit}});
-    const getJobsQuery= useLazyQuery(GET_JOBS,{fetchPolicy:'cache-and-network'});
+
+    const [jobsQ, {data }] = useLazyQuery(GET_JOBS);
 
     const paginationClicked = (e,i) => {
-        setActive(i);
-        getJobsQuery[0]({variables:{pageNumber:i,pageLimit:limit}});
-    }
-    
-    if(getJobsQuery[1].data)
-    {
-        dispatch({type:FETCH_JOBS,payload:getJobsQuery[1].data});
-        getJobsQuery[1].data = undefined;
-    }
+        let {searchValue,searchLocation} = filter;
 
-    if(data && data.jobPagination && !pagination)
+        setTmpData({});
+        dispatch({type:FETCH_PAGINATION,payload:{pagination,pageActive:i}});
+        searchValue = searchValue ? searchValue : "";
+        searchLocation = searchLocation ? searchLocation : "";
+        jobsQ({variables:{searchInput:{pageNum:i,pageLimit:limit,searchTxt:searchValue,searchLocation:searchLocation}}});
+    }
+ 
+    if(data != tmpData && data && data.jobs)
     {
-        dispatch({type:FETCH_PAGINATION,payload:{pagination: data.jobPagination}});
+        setTmpData(data);
+        dispatch({type:FETCH_JOBS,payload:data.jobs});
+        dispatch({type:SELECT_JOB,payload:{}});
     }
 
     let records = [];
+    let active = pageActive ? pageActive : 1;
     if(pagination)
     {
         for(let i=1;i<=pagination;i++)

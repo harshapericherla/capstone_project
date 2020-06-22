@@ -1,17 +1,24 @@
-import React from 'react'
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
 export const JobDetails = () => {
-    return(
-        <div class = "showJobContent">
+
+    const selectedJob = useSelector(state => state.selectJob);
+
+    if(selectedJob && Object.keys(selectedJob).length > 0)
+    {
+        return(
+            <div class = "showJobContent">
             <div id = "stickyContent">
                 <span class = "jobName">
-                    <h1>Front End Developer</h1>
+                    <h1>{selectedJob.name}</h1>
                 </span>
                 <span class = "companyName">
-                    <p>Deep Treeker Inc.</p>
+                    <p>{selectedJob.companyName}</p>
                 </span>
                 <span class = "location">
                     <span class="fa fa-map-marker"></span>
-                    <p>Kitchener, ON, canada</p>
+                    <p>{selectedJob.location}</p>
                 </span>
             </div>
                 
@@ -19,15 +26,12 @@ export const JobDetails = () => {
                 <h2>Job Details</h2>
                 <h3>Job Type</h3>
                 <span class ="jobType">
-                    <p>Full-Time</p>
+                   <p>{selectedJob.type}</p>
                 </span>
             </div>
             <hr></hr>
             <h3>Full Job Description</h3>
-            <p>At Deep Trekker we work hard and get stuff done, but we have fun doing it. We’re versatile and aren’t afraid to take on new challenges and learn new tricks. With innovative and disciplined engineering design, Deep Trekker has experienced continued success and growth since our inception.</p>
-        
-            <p>We are currently seeking a versatile and talented Front End Developer with an embedded focus. If you are a highly motivated developer who is passionate about developing mobile robots and underwater drones this might be the job for you. In this role, you will work with little supervision to develop in an embedded Linux environment for new products.</p>
-                
+            <p>{selectedJob.description}</p>
             <h3>Responsibiltes:</h3>
             <ul>
                 <li>Design, develop, test, deploy, maintain and improve the customer-facing GUI for a hand held ROV controller, running embedded linux</li>
@@ -51,6 +55,9 @@ export const JobDetails = () => {
                 <button type="button">Apply Now</button>
             </div>
         </div>
-       
+        );
+    }
+    return(
+        <div></div>  
     );
 }

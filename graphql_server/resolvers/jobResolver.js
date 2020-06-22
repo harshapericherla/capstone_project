@@ -1,59 +1,55 @@
 const mongoose = require('mongoose');
 const Job = mongoose.model('Job');
 
-exports.getJobs = async (pageNum,pageLimit) => {
+exports.getJobs = async (pageNum,pageLimit,searchTxt,searchLocation) => {
+    let searchObj = {}
     let jobs;
     let errorObj;
+    let count,pages;
     try{
-        jobs = await Job.find({},null,{limit:pageLimit,skip:(pageNum - 1) * pageLimit}); 
+        let searchLocOr = [];
+        let searchOr = [];
+        if(searchLocation && searchLocation.length > 0)
+        {
+            searchLocOr.push({"location":  {$regex:`^.*${searchLocation.toLowerCase()}.*$`,$options:'i'}})
+        }
+        if(searchTxt && searchTxt.length > 0)
+        {
+            searchOr.push({"name":  {$regex:`^.*${searchTxt.toLowerCase()}.*$`,$options:'i'}});
+            searchOr.push({"companyName":  {$regex:`^.*${searchTxt.toLowerCase()}.*$`,$options:'i'}});
+        }
+
+        if(searchLocOr.length > 0 && searchOr.length > 0)
+        {
+            searchObj = {
+                $and: [
+                    {$or: searchOr},
+                    {$or: searchLocOr}
+                ]
+            }
+        }
+        else if(searchLocOr.length > 0)
+        {
+            searchObj = {
+                $or: searchLocOr
+            }
+        }
+        else if(searchOr.length > 0)
+        {
+            searchObj = {
+                $or: searchOr
+            }
+        }
+
+        jobs = await Job.find(searchObj,null,{limit:pageLimit,skip:(pageNum - 1) * pageLimit});
+        
+        count = await Job.countDocuments(searchObj);
+        pages = Math.ceil(count / pageLimit);
     }
     catch(error){
+        console.log(error);
         errorObj = error;
     }
-    return jobs;
+    return {jobs,pages};
 }
 
-exports.paginateJobs = async (limit) => {
-    let jobs;
-    let totalPages;
-    try{
-        jobs = await this.getJobs();
-        totalPages = Math.ceil(jobs.length / limit);
-    }catch(error)
-    {
-        console.log(error);
-    }
-    return totalPages;
-}
-
-exports.searchJobs = async (searchText) => {
-    let jobs;
-    let searchArr = searchText.split(" ");
-    try
-    {
-        jobs = await this.getJobs();
-        jobs = jobs.filter( (job) => {
-             return checkIfMatches(searchArr,"name",job) || 
-                    checkIfMatches(searchArr,"companyName",job);
-        });
-    }catch(error)
-    {
-        console.log(error);
-    }
-    return jobs;
-}
-
-const checkIfMatches = (arr,targetProp,srcObj) => {
-
-    for(let txt of arr)
-    {
-        let propValue = srcObj[targetProp].toLowerCase();
-       
-        let searchTxt = txt.toLowerCase();
-        if(propValue.includes(searchTxt) || searchTxt.includes(propValue))
-        {
-            return true;
-        }
-    }
-    return false;
-}

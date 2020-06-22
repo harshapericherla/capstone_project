@@ -1,30 +1,39 @@
-import {Fragment} from 'react';
-import { useQuery } from "@apollo/react-hooks";
+import {Fragment, useEffect, useState} from 'react';
+import { useLazyQuery } from "@apollo/react-hooks";
 import {GET_JOBS} from '../../graphql/queries';
 import React from 'react';
-import { JobsPagination } from './JobsPagination';
 import { useSelector, useDispatch } from 'react-redux';
-import {FETCH_JOBS} from '../../actions/types';
+import {FETCH_JOBS, FETCH_PAGINATION, SELECT_JOB} from '../../actions/types';
 
 export const JobsList = () => {
+
+    const [initialLoaded,setInitialLoaded] = useState(false);
 
     const {jobs} = useSelector(state => state.jobs);
     const dispatch = useDispatch();
     const limit = parseInt(process.env.PAGINATION_LIMIT);
-    const { data, loading, error } = useQuery(GET_JOBS,{variables:{pageNumber:1,pageLimit:limit}});
-    if (loading) return <p>Loading</p>;
-    if (error) return <p>ERROR</p>;
-    if (!data) return <p>Not found</p>;
-    
-    if(data && !jobs)
+    const [jobsQ, {data }] = useLazyQuery(GET_JOBS);
+
+
+    useEffect(() => {
+        if(!jobs)
+        {
+           jobsQ({variables:{searchInput:{pageNum:1,pageLimit:limit,searchTxt:""}}});
+        }
+    });
+
+    if(!initialLoaded && data && data.jobs)
     {
-       dispatch({type:FETCH_JOBS,payload:data});
+        setInitialLoaded(true);
+        dispatch({type:FETCH_JOBS,payload:data.jobs});
+        dispatch({type:FETCH_PAGINATION,payload:{pagination:data.jobs.pages}});
     }
+
     return (
       <Fragment>
           <div>
             {jobs && jobs.map(job => (
-                <div class = "listContent">
+                <div class = "listContent" onClick={() => dispatch({type:SELECT_JOB,payload:job}) }>
                   <div id = "cards">
                     <div class = "flex-card">
                       <div id = "circle">
@@ -54,7 +63,6 @@ export const JobsList = () => {
                   </div>
                 </div> 
             ))}
-          <JobsPagination/>
           </div>
               
       </Fragment>
