@@ -9,14 +9,19 @@ import { JobsPagination } from './JobsPagination';
 
 
 export const Jobs = () => {
-
     return(
         <Fragment>
             <Search/>
             <div id ="flexContent">
-                <JobsList />
-                <JobDetails />
-                <JobsPagination/>
+                <div class = "flexRow">
+                    <div id = "pagination">
+                        <JobsList />
+                    </div>
+                    <JobDetails />    
+                </div>
+                <div id = "pagination" class = "abc">
+                    <JobsPagination/>
+                </div>
             </div>
         </Fragment>
     );
