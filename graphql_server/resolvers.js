@@ -1,4 +1,5 @@
 const {JobResolver} = require('./schemas/jobSchema');
+const {AuthResolver} = require('./schemas/authSchema');
 const _ = require('lodash');
 
 const resolvers = {
@@ -7,6 +8,6 @@ const resolvers = {
     }
 }
 
-const finalResolver = _.merge(resolvers,JobResolver);
+const finalResolver = _.merge(resolvers,JobResolver,AuthResolver);
 
 module.exports = finalResolver;

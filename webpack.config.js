@@ -21,7 +21,13 @@ const config = {
     module:{
         rules:[
             {
-                use:'babel-loader',
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['env'],
+                        plugins: [require('babel-plugin-transform-object-rest-spread')]
+                    }
+                },
                 test: /\.js$/,
                 exclude: /node_modules/
             },
