@@ -5,8 +5,8 @@
 @media screen and (min-width: 700px) {
 
     .showJobContent{
-        flex-basis: 50%;
-        margin: 20px;
+        flex-basis: 45%;
+        margin: 10px;
         padding: 2px 25px;
         height: auto;
         box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -29,9 +29,26 @@
 
 @media screen and (max-width: 480px) {
 
+   
     .showJobContent{
-        display: none;  
+        flex-basis: 45%;
+        margin: 10px;
+        padding: 2px 25px;
+        height: auto;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        transition: 0.3s;
     }
-
+    #stickyContent{
+        .location{
+            .fa-map-marker{
+                font-size: 30px;
+                margin: 5px;
+            }
+        }
+    }
+    button{
+        @include buttonColor(100%);
+        border-radius: 10px;
+    }
 }
 
