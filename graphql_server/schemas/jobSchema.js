@@ -39,7 +39,8 @@ exports.Job = `
 
 exports.JobResolver = {
     Query:{
-        jobs: async (_,{searchInput},{dataSources}) => { 
+        jobs: async (_,{searchInput},{user}) => { 
+            console.log(user);
             let {pageNum,pageLimit,searchTxt,searchLocation} = searchInput;
             return await getJobs(pageNum,pageLimit,searchTxt,searchLocation);
         }
