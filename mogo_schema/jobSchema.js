@@ -29,10 +29,13 @@ const jobSchema = new Schema({
         required: true,
         trim: true,
       },
-      roles_Responsibiltes : {
-        type: String,
-        required: true,
-        trim: true,
+      roles : {
+        type: Array,
+        default: []
+      },
+      responsibilities:{
+         type: Array,
+         default: []
       },
       companyName : {
         type: String,

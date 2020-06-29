@@ -1,4 +1,4 @@
-import {Fragment, useEffect, useState} from 'react';
+import {Fragment, useState, useLayoutEffect} from 'react';
 import { useLazyQuery } from "@apollo/react-hooks";
 import {GET_JOBS} from '../../graphql/queries';
 import React from 'react';
@@ -15,12 +15,9 @@ export const JobsList = () => {
     const [jobsQ, {data }] = useLazyQuery(GET_JOBS);
 
 
-    useEffect(() => {
-        if(!jobs)
-        {
-           jobsQ({variables:{searchInput:{pageNum:1,pageLimit:limit,searchTxt:""}}});
-        }
-    });
+    useLayoutEffect(() => {
+          jobsQ({variables:{searchInput:{pageNum:1,pageLimit:limit,searchTxt:""}}});
+    },[]);
 
     if(!initialLoaded && data && data.jobs)
     {
