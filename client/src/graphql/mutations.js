@@ -16,3 +16,11 @@ mutation loginUser($userInput: UserInput){
     }
 }
 `;
+
+export const CREATE_JOB = gql`
+mutation createJobMutation($createJobInput: CreateJobInput){
+    createJob(createJobInput:$createJobInput){
+        success
+    }
+}
+`;

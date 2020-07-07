@@ -12,7 +12,7 @@ export const JobsList = () => {
     const {jobs} = useSelector(state => state.jobs);
     const dispatch = useDispatch();
     const limit = parseInt(process.env.PAGINATION_LIMIT);
-    const [jobsQ, {data }] = useLazyQuery(GET_JOBS);
+    const [jobsQ, {data }] = useLazyQuery(GET_JOBS,{fetchPolicy:"network-only"});
 
 
     useLayoutEffect(() => {

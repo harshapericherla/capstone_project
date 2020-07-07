@@ -53,3 +53,14 @@ exports.getJobs = async (pageNum,pageLimit,searchTxt,searchLocation) => {
     return {jobs,pages};
 }
 
+
+exports.createJob = async ({name,location,type,description,companyName},user) => {
+    try{
+        let job = new Job({name,_postedBy:user._id,location,type,description,companyName});
+        await job.save();
+    }
+    catch(error){
+        errorObj = error;
+    }
+}
+

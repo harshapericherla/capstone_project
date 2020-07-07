@@ -1,4 +1,4 @@
-const {getJobs} = require('../resolvers/jobResolver');
+const {getJobs, createJob} = require('../resolvers/jobResolver');
 const {getUserById} = require('../resolvers/userResolver');
 
 
@@ -10,7 +10,22 @@ exports.Job = `
         searchJobs(searchText: String): [Job]!
         jobPagination(pageLimit: Int): Int
     }
-    
+
+    extend type Mutation
+    {
+        createJob(createJobInput: CreateJobInput): JobMutationResponse
+    } 
+
+
+    input CreateJobInput
+    {
+        name: String
+        location:String
+        type:String
+        description:String
+        companyName:String
+    }
+
     input JobInput
     {
         pageNum:Int
@@ -18,6 +33,12 @@ exports.Job = `
         searchTxt: String
         searchLocation: String
     }
+
+    type JobMutationResponse
+    {
+        success: Boolean
+    }
+
     type JobResult
     {
         jobs:[Job]!
@@ -40,9 +61,15 @@ exports.Job = `
 exports.JobResolver = {
     Query:{
         jobs: async (_,{searchInput},{user}) => { 
-            console.log(user);
             let {pageNum,pageLimit,searchTxt,searchLocation} = searchInput;
             return await getJobs(pageNum,pageLimit,searchTxt,searchLocation);
+        }
+    },
+    Mutation:{
+        createJob: async(_,{createJobInput},{user}) => {
+            
+            await createJob(createJobInput,user);
+            return {"success":true};
         }
     },
     Job : {
