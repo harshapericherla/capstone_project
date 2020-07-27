@@ -2,7 +2,7 @@
 import { NavLink, useHistory } from 'react-router-dom';
 import React, { Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { IS_LOGGED_IN } from '../actions/types';
+import { IS_LOGGED_IN, SELECT_JOB } from '../actions/types';
 
 export default function Header(props) {
 
@@ -12,6 +12,7 @@ export default function Header(props) {
     const logout = () => {
         localStorage.removeItem("token");
         dispatch({type:IS_LOGGED_IN,payload:{isLoggedIn:false}});
+        dispatch({type:SELECT_JOB,payload:{}});
         history.push("/");
     }
 
@@ -22,6 +23,7 @@ export default function Header(props) {
                 <Fragment>
                     <NavLink to="/">Home</NavLink>
                     <NavLink to="/createjob">Post a Job</NavLink>
+                    <NavLink to="/appliedjobs">Applied Jobs</NavLink>
                     <button onClick={logout}>Logout</button>
                 </Fragment>;
     }

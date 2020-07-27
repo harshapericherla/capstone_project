@@ -16,6 +16,7 @@
     "apollo-link-http": "^1.5.17",
     "apollo-server": "^2.14.1",
     "apollo-server-express": "^2.14.2",
+    "apollo-upload-client": "^14.1.0",
     "axios": "^0.19.2",
     "graphql-tag": "^2.10.3",
     "query-string": "^6.13.1",

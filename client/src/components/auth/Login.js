@@ -1,12 +1,14 @@
-import React, { useRef, useState } from 'react'
-import {LOGIN_USER} from '../../graphql/mutations';
+import React, { useRef, useState, useLayoutEffect } from 'react'
+import { LOGIN_USER } from '../../graphql/mutations';
 import { useMutation } from '@apollo/react-hooks';
 import { useDispatch } from 'react-redux';
 import {IS_LOGGED_IN} from '../../actions/types';
+import {parse} from 'query-string';
 
 export default function Login(props) {
 
     const dispatch = useDispatch();
+    const [redirectUrl,setRedirectUrl] = useState(""); 
     const [loginUserQ, { data }] = useMutation(LOGIN_USER);
     const [message,setMessage] = useState("");
     const passwordInput = useRef("");
@@ -19,6 +21,14 @@ export default function Login(props) {
         loginUserQ({variables:{userInput:{password,email}}});
     }
 
+    useLayoutEffect(() => {
+        let params = parse(props.location.search);
+        if(params.redirectUrl)
+        {
+            setRedirectUrl(params.redirectUrl);
+        }
+    },[])
+
     if(data && data.login && data != tmpData)
     {
         setTmpData(data);
@@ -27,7 +37,10 @@ export default function Login(props) {
         {
             localStorage.setItem('token',token);
             dispatch({type:IS_LOGGED_IN,payload:{isLoggedIn:true}});
-            props.history.push("/");
+            if(redirectUrl)
+               props.history.push("/"+redirectUrl);
+            else
+               props.history.push("/");
         }
         else
         {
@@ -35,6 +48,7 @@ export default function Login(props) {
         }
     }
 
+    let googleUrl =  redirectUrl.length > 0 ? `/auth/google?redirectUrl=${redirectUrl}` : "/auth/google/";
     return (
         <div>
            {message}
@@ -42,7 +56,7 @@ export default function Login(props) {
            password: <input ref={passwordInput} /> <br/>
            <button onClick={handleSubmit}>Sign In</button>
 
-           <a href="/auth/google">Google SignIn</a>
+           <a href={`${googleUrl}`}>Google SignIn</a>
         </div>
     )
 }

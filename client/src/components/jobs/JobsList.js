@@ -14,7 +14,6 @@ export const JobsList = () => {
     const limit = parseInt(process.env.PAGINATION_LIMIT);
     const [jobsQ, {data }] = useLazyQuery(GET_JOBS,{fetchPolicy:"network-only"});
 
-
     useLayoutEffect(() => {
           jobsQ({variables:{searchInput:{pageNum:1,pageLimit:limit,searchTxt:""}}});
     },[]);

@@ -6,19 +6,19 @@ import {JobsList} from './JobsList';
 import React,{Fragment, useLayoutEffect} from 'react';
 import {Search} from './Search';
 import { JobsPagination } from './JobsPagination';
-import {parse} from 'query-string'
+import {parse} from 'query-string';
 import { useDispatch } from 'react-redux';
-import { IS_LOGGED_IN } from '../../actions/types';
+import { IS_LOGGED_IN, SELECT_JOB } from '../../actions/types';
 
 export const Jobs = (props) => {
 
 
     const dispatch = useDispatch();
     useLayoutEffect(() => {
-
+        let params = undefined;
         if(props.location.search)
         {
-            let params = parse(props.location.search);
+            params = parse(props.location.search);
             if(params.token)
             {
                 let token = decodeURIComponent(params.token);
@@ -30,9 +30,13 @@ export const Jobs = (props) => {
         if(token && token.length > 0)
         {
             dispatch({type:IS_LOGGED_IN,payload:{isLoggedIn:true}});
-            props.history.push("/");
+            console.log(params);
+            if(params && params.redirectUrl)
+               props.history.push("/"+params.redirectUrl);
+            else
+               props.history.push("/");
         }
-
+        dispatch({type:SELECT_JOB,payload:{}});
     },[]);
 
     return(

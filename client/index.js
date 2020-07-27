@@ -11,10 +11,10 @@ import {createStore,applyMiddleware} from 'redux';
 import reducers from './src/reducers';
 import reduxThunk from 'redux-thunk';
 import App from './src/App';
-
+import { createUploadLink } from 'apollo-upload-client';
 
 const cache = new InMemoryCache();
-const link = new HttpLink({
+const link = new createUploadLink({
   uri: "/graphql"
 });
 

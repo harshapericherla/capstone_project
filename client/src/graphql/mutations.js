@@ -24,3 +24,11 @@ mutation createJobMutation($createJobInput: CreateJobInput){
     }
 }
 `;
+
+export const APPLY_JOB = gql`
+mutation applyJobMutation($file: Upload!,$jobId: String!){
+    applyJob(file:$file,jobId:$jobId){
+        success
+    }
+}
+`;

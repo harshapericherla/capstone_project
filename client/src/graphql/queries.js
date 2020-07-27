@@ -12,6 +12,8 @@ query jobQuery(
       type
       description
       companyName
+      roles
+      responsibilities
       posted_by
       {
         _id
@@ -19,6 +21,25 @@ query jobQuery(
       }
     }
     pages
+  }
+}
+`;
+
+export const JOB_APPLIED = gql`
+query jobApplied(
+  $jobId:String!
+){
+  jobApplied(jobId:$jobId){
+    isApplied
+  }
+}
+`;
+
+
+export const JOBS_APPLIED = gql`
+query jobsApplied{
+  getAppliedJobs{
+    jobs
   }
 }
 `;

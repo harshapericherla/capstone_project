@@ -2,18 +2,17 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userJobSchema = new Schema({
-
-    userJobAppliedID : Number,
-    userID : Number,
+    userID : {
+      type : Schema.Types.ObjectId,
+      ref : 'userSchema',
+    },
     jobID : {
         type : Schema.Types.ObjectId,
         ref : 'jobSchema',
     },
-    email: {
+    resumeLink:{
       type: String,
-      required: true,
-      trim: true,
-      unique: true,
+      required: true
     }
 });
 mongoose.model('UserJob',userJobSchema);

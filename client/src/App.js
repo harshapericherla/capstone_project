@@ -6,6 +6,8 @@ import {BrowserRouter,Route} from 'react-router-dom';
 import Header from './components/Header';
 import Login from './components/auth/Login';
 import { Register } from './components/auth/Register';
+import { ApplyJob } from './components/jobs/ApplyJob';
+import { JobsApplied } from './components/jobs/JobsApplied';
 
 export default class App extends Component {
     render() {
@@ -15,7 +17,9 @@ export default class App extends Component {
                   <Fragment>
                       <Header />
                       <Route exact path = "/login" component = {Login} />
+                      <Route exact path="/applyjob" component = {ApplyJob} />
                       <Route exact path = "/createjob" component = {CreateJob} />
+                      <Route exact path ="/appliedjobs" component = {JobsApplied} />
                       <Route exact path = "/" component = {Jobs} />
                       <Route exact path ="/register" component = {Register} />
                   </Fragment>

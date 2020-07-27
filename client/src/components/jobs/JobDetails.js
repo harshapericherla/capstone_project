@@ -1,9 +1,40 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useLayoutEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import {JOB_APPLIED} from '../../graphql/queries';
+import { useLazyQuery } from '@apollo/react-hooks';
 
 export const JobDetails = () => {
-
+    
+    const history = useHistory();
     const selectedJob = useSelector(state => state.selectJob);
+    const [jobAppliedQ, {data}] = useLazyQuery(JOB_APPLIED,{fetchPolicy:"network-only"});
+    const [selectedJobId,setSelectedJobId] = useState(""); 
+
+    if(selectedJob && selectedJob._id && selectedJob._id != selectedJobId)
+    {
+        jobAppliedQ({variables:{jobId:selectedJob._id}});
+        setSelectedJobId(selectedJob._id);
+    }
+
+    const applyNow = () => {
+
+        let token = localStorage.getItem("token");
+        if(token && token.length > 0)
+           history.push("/applyjob");
+        else
+           history.push("/login?redirectUrl=applyjob");
+    }
+
+    let applyJobHtml = '';
+    if (data && data.jobApplied && data.jobApplied.isApplied)
+    {
+        applyJobHtml = <button type="button">Applied</button>;
+    }
+    else
+    {
+        applyJobHtml = <button type="button" onClick={applyNow} >Apply Now</button>;
+    }
 
     if(selectedJob && Object.keys(selectedJob).length > 0)
     {
@@ -34,25 +65,19 @@ export const JobDetails = () => {
             <p>{selectedJob.description}</p>
             <h3>Responsibiltes:</h3>
             <ul>
-                <li>Design, develop, test, deploy, maintain and improve the customer-facing GUI for a hand held ROV controller, running embedded linux</li>
-                <li>Develop Qt applications, with a focus on the front-end QML code base with a tight interaction with a C++ backend</li>
-                <li>Design visually pleasing, scalable, efficient front-end UI components and systems</li>
-                <li>Create UI features including: vehicle navigation information, user menus, diagnostic information, and sensor data</li>
-                <li>Deliver an intuitive UX for a wide variety of users</li>
-                <li>Coordinate feature development with back-end and robotics software developers</li>
+                {selectedJob.responsibilities && selectedJob.responsibilities.length > 0 && selectedJob.responsibilities.map( (responsibility) => {
+                    return <li>{responsibility}</li>
+                })}
             </ul>
             <h3>Skills and Qualifications:</h3>
             <ul>
-                <li>University degree in Software, Electrical/Electronics, Mechatronics, Computer Science, or related field</li>
-                <li>Knowledge of modern Javascript and web technologies</li>
-                <li>Experience with Qt/QML or similar C++ GUI development toolkits</li>
-                <li>Development experience in an embedded Linux environment</li>
-                <li>Solid understanding of object-oriented software design and programming</li>
-                <li>Comfortable with Git or equivalent version control software</li>
+                {selectedJob.roles && selectedJob.roles.length > 0 && selectedJob.roles.map( (role) => {
+                    return <li>{role}</li>
+                })}
             </ul>
         
             <div class ="stickyContent">
-                <button type="button">Apply Now</button>
+                {applyJobHtml}
             </div>
         </div>
         );

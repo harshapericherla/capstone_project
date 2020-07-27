@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Job = mongoose.model('Job');
+const UserJob = mongoose.model('UserJob');
 
 exports.getJobs = async (pageNum,pageLimit,searchTxt,searchLocation) => {
     let searchObj = {}
@@ -54,13 +55,52 @@ exports.getJobs = async (pageNum,pageLimit,searchTxt,searchLocation) => {
 }
 
 
-exports.createJob = async ({name,location,type,description,companyName},user) => {
+exports.createJob = async ({name,location,type,description,companyName,roles,responsibilities},user) => {
+
+    let rolesArr = roles.split(";");
+    let responsibilitiesArr = responsibilities.split(";");
     try{
-        let job = new Job({name,_postedBy:user._id,location,type,description,companyName});
+        let job = new Job({name,_postedBy:user._id,location,type,description,companyName,roles:rolesArr,responsibilities:responsibilitiesArr});
         await job.save();
     }
     catch(error){
         errorObj = error;
     }
 }
+
+exports.createUserJob = async (dir,userId,jobId) => {
+    try{
+        let userJob = new UserJob({userID:userId,jobID:jobId,resumeLink:dir});
+
+        console.log(userId,jobId,dir);
+        await userJob.save();
+    }
+    catch(error){
+        console.log(error);
+        errorObj = error;
+    }
+}
+
+exports.checkIfJobApplied = async (userID,jobID) => {
+    let userJobArr = [];
+    try{
+        userJobArr = await UserJob.find({userID,jobID});
+    }
+    catch(error){
+        console.log(error);
+        errorObj = error;
+    }
+    return userJobArr;
+}
+
+exports.getUserAppliedJobs = async (userID) => {
+    let userAppliedJobs = [];
+    try{
+        userAppliedJobs = UserJob.find({userID});
+    }catch(error){
+        console.log(error);
+    }
+    return userAppliedJobs;
+}
+
 

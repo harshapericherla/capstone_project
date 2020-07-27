@@ -12,6 +12,8 @@ export const CreateJob = (props) => {
     const typeInput = useRef("");
     const descInput = useRef("");
     const companyInput = useRef("");
+    const rolesInput = useRef("");
+    const responsibilitiesInput = useRef("");
     const [tmpData,setTmpData] = useState(false);
 
     const handleSubmit = () => {
@@ -20,7 +22,9 @@ export const CreateJob = (props) => {
          let type = typeInput.current.value;
          let description = descInput.current.value;
          let companyName = companyInput.current.value;
-         createJobM({variables:{createJobInput:{name,location,type,description,companyName}}});
+         let roles = rolesInput.current.value;
+         let responsibilities = responsibilitiesInput.current.value;
+         createJobM({variables:{createJobInput:{name,location,type,description,companyName,roles,responsibilities}}});
     }
 
     if(data && data != tmpData)
@@ -39,6 +43,8 @@ export const CreateJob = (props) => {
                     </select> <br/>
             Description: <input ref={descInput} />  <br/>
             Company: <input ref={companyInput} />  <br/>
+            Roles: <input ref={rolesInput} />  <br/>
+            Responsibilities: <input ref={responsibilitiesInput} />  <br/>
             <button onClick={handleSubmit}>submit</button>
         </div>  
     );
