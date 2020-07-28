@@ -1,0 +1,24 @@
+login page-
+
+guest/sign in / register 
+
+home page ---- welcome user
+
+1. user can search the job / user can pick the jobs listed below
+2.user can see the list of searched jobs
+3. user can pick the job 
+4. user will go through the job details
+5.user can apply the jobs
+6.user needs to fill the details and uplaod the resume.
+7.user can send message to company if chat is opened
+8. user can see his list of jobs applied in his profile
+
+if user wants to post the job
+1.user can post the multiple jobs.
+2. user needs to fill the details of the job
+3.user can see list of jobs posted by him.
+3.user can see number of people applied for job.
+4. user can see their profile(address, resume ,etc)
+5. user can set up chat with other users.
+6.user can send notification if selected/not selected.
+7.user can update/delete the job post.

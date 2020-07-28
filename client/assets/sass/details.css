@@ -1,0 +1,74 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+@media screen and (min-width: 700px) {
+  .showJobContent {
+    -ms-flex-preferred-size: 45%;
+        flex-basis: 45%;
+    margin: 10px;
+    padding: 2px 25px;
+    height: auto;
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+  }
+  #stickyContent .location .fa-map-marker {
+    font-size: 30px;
+    margin: 5px;
+  }
+  button {
+    font-family: Roboto, sans-serif;
+    width: 100%;
+    color: white;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1px;
+    border: 1px solid #2196F3;
+    height: 45px;
+    margin-top: 10px;
+    padding: 0 16px;
+    border-radius: 2px;
+    background-color: #2196F3;
+    -webkit-box-shadow: 0 1px 3px #999999;
+            box-shadow: 0 1px 3px #999999;
+    border-radius: 10px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .showJobContent {
+    -ms-flex-preferred-size: 45%;
+        flex-basis: 45%;
+    margin: 10px;
+    padding: 2px 25px;
+    height: auto;
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+  }
+  #stickyContent .location .fa-map-marker {
+    font-size: 30px;
+    margin: 5px;
+  }
+  button {
+    font-family: Roboto, sans-serif;
+    width: 100%;
+    color: white;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1px;
+    border: 1px solid #2196F3;
+    height: 45px;
+    margin-top: 10px;
+    padding: 0 16px;
+    border-radius: 2px;
+    background-color: #2196F3;
+    -webkit-box-shadow: 0 1px 3px #999999;
+            box-shadow: 0 1px 3px #999999;
+    border-radius: 10px;
+  }
+}
+/*# sourceMappingURL=details.css.map */

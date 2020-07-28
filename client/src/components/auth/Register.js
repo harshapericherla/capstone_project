@@ -1,6 +1,8 @@
 import React, { useRef, useState } from 'react'
 import {REGISTER_USER} from '../../graphql/mutations';
 import { useMutation } from '@apollo/react-hooks';
+import '../../../assets/sass/login.scss';
+
 
 export const Register = () => {
 
@@ -35,11 +37,36 @@ export const Register = () => {
 
     return (
         <div>
-            {message}
-            Name: <input ref={nameInput} /> <br/>
-            password: <input ref={passwordInput} /> <br/>
-            email: <input ref={emailInput} /> <br/>
-            <button onClick={handleSubmit}>submit</button>
+            {message} 
+
+            <div id = "box">
+            <form action ="#">
+                <h1>Welcome Back</h1>
+                <div class ="form_details">
+                <div class = "group">
+                        <input type="text" id="form_control" name="name" ref={nameInput}/>
+                        <label for="name">FullName</label>
+                    </div>
+                    <div class = "group">
+                        <input type="email" id="form_control" name="email" ref={emailInput}/>
+                        <label for="email">Email</label>
+                    </div>
+                    <div class = "group">
+                        
+                        <input type="password" id="form_control" name="password" ref={passwordInput}/>
+                        <label for="password">Password</label>
+                    </div>
+                    <div class = "group">
+                        
+                        <input type="password" id="form_control" name="confirm password" ref={passwordInput}/>
+                        <label for="confirm password">Confirm Password</label>
+                    </div><br></br>
+                    <input type="submit" id = "button" value="Submit" onClick={handleSubmit}/>
+                </div>    
+            </form>
+        </div>
+        <input type="submit" class="fa fa-google" value="Sign in with google"></input>
+
         </div>
     )
 }
