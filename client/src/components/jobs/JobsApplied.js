@@ -11,7 +11,6 @@ export const JobsApplied = () => {
 
     let innerHtml = '';
 
-    console.log(data);
     if(data && data.appliedJobs && data.appliedJobs.jobs && data.appliedJobs.jobs.length > 0)
     {
         innerHtml = [];
@@ -23,9 +22,13 @@ export const JobsApplied = () => {
                 );
         }));
     }
-    else
+    else if(data && data.appliedJobs && data.appliedJobs.length == 0)
     {
-        innerHtml = "No jobs applied"
+        innerHtml = "No jobs applied";
+    }
+    else 
+    {
+        innerHtml = "Loading...";
     }
     return (
         <div>{innerHtml}</div>
