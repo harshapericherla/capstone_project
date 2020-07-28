@@ -38,8 +38,22 @@ query jobApplied(
 
 export const JOBS_APPLIED = gql`
 query jobsApplied{
-  getAppliedJobs{
+  appliedJobs{
     jobs
+    {
+      _id
+      resumeLink
+      job{
+        _id
+        name
+        location
+        type
+        description
+        companyName
+        roles
+        responsibilities
+      }
+    }
   }
 }
 `;

@@ -93,13 +93,26 @@ exports.checkIfJobApplied = async (userID,jobID) => {
     return userJobArr;
 }
 
+exports.getJobById = async (id) => {
+    let job;
+    let errorObj;
+    try{
+        job = await Job.findById({_id: id}); 
+    }
+    catch(error){
+        errorObj = error;
+    }
+    return job;
+}
+
 exports.getUserAppliedJobs = async (userID) => {
     let userAppliedJobs = [];
     try{
-        userAppliedJobs = UserJob.find({userID});
+        userAppliedJobs = await UserJob.find({userID});
     }catch(error){
         console.log(error);
     }
+    console.log(userAppliedJobs);
     return userAppliedJobs;
 }
 
