@@ -1,0 +1,168 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+@media screen and (min-width: 700px) {
+  #search {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    min-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 850px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+  #search .search {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
+    margin: 5px;
+    position: relative;
+  }
+  #search .search h2 {
+    font-size: 15px;
+    margin: 4px;
+  }
+  #search .search h4 {
+    font-size: 13px;
+    margin: 4px;
+    font-weight: 200;
+  }
+  #search .search .fa-search {
+    position: absolute;
+    top: 65px;
+    left: 13px;
+    font-size: 18px;
+  }
+  #search .search .fa-map-marker {
+    position: absolute;
+    top: 65px;
+    left: 13px;
+    font-size: 20px;
+  }
+  #search input[type=text] {
+    width: 100%;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 15px;
+    font-size: 13px;
+    background-color: white;
+    padding: 12px 20px 12px 40px;
+  }
+  #search input[type=text]:focus {
+    outline: none;
+  }
+  #search button {
+    font-family: Roboto, sans-serif;
+    width: 14%;
+    color: white;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1px;
+    border: 1px solid #2196F3;
+    height: 45px;
+    margin-top: 10px;
+    padding: 0 16px;
+    border-radius: 2px;
+    background-color: #2196F3;
+    -webkit-box-shadow: 0 1px 3px #999999;
+            box-shadow: 0 1px 3px #999999;
+    margin-top: 55px;
+    border-radius: 10px;
+    outline: none;
+  }
+  hr {
+    border-top: 3px #c4c4c4;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  #search {
+    min-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 480px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+  #search .search {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    position: relative;
+    margin: 5px;
+  }
+  #search .search h2 {
+    font-size: 20px;
+    margin: 2px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+  }
+  #search .search h4 {
+    font-size: 13px;
+    margin: 2px;
+    font-weight: 200;
+  }
+  #search .search .fa-search {
+    position: absolute;
+    top: 70px;
+    left: 13px;
+    font-size: 18px;
+  }
+  #search .search .fa-map-marker {
+    position: absolute;
+    top: 70px;
+    left: 13px;
+    font-size: 20px;
+  }
+  #search input[type=text] {
+    width: 100%;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 15px;
+    font-size: 14px;
+    background-color: white;
+    padding: 12px 20px 12px 40px;
+    margin-top: 5px;
+  }
+  #search input[type=text]:focus {
+    outline: none;
+  }
+  #search button {
+    font-family: Roboto, sans-serif;
+    width: 97%;
+    color: white;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1px;
+    border: 1px solid #2196F3;
+    height: 45px;
+    margin-top: 10px;
+    padding: 0 16px;
+    border-radius: 2px;
+    background-color: #2196F3;
+    -webkit-box-shadow: 0 1px 3px #999999;
+            box-shadow: 0 1px 3px #999999;
+    margin: 6px;
+    border-radius: 10px;
+    outline: none;
+  }
+}
+/*# sourceMappingURL=search.css.map */

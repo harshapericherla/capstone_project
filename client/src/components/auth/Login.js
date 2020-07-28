@@ -4,6 +4,8 @@ import { useMutation } from '@apollo/react-hooks';
 import { useDispatch } from 'react-redux';
 import {IS_LOGGED_IN} from '../../actions/types';
 import {parse} from 'query-string';
+import '../../../assets/sass/login.scss';
+
 
 export default function Login(props) {
 
@@ -52,9 +54,21 @@ export default function Login(props) {
     return (
         <div>
            {message}
-           email: <input ref={emailInput} /> <br/>
-           password: <input ref={passwordInput} /> <br/>
-           <button onClick={handleSubmit}>Sign In</button>
+           <div id = "box">
+                <h1>Welcome Back</h1>
+                <div class ="form_details">
+                    <div class = "group">
+                        <input type="email" id="form_control" name="email" ref={emailInput} ></input>
+                        <label for="email">Email</label>
+                    </div>
+                    <div class = "group">
+                        <input type="password" id="form_control" name="password" ref={passwordInput}></input>
+                        <label for="password">Password</label>
+                    </div><br></br>
+                    <input type="submit" id = "button" value="Submit" onClick={handleSubmit}></input>
+                </div>    
+        </div>
+        <input type="submit" class="fa fa-google" value="Sign in with google"></input>
 
            <a href={`${googleUrl}`}>Google SignIn</a>
         </div>
