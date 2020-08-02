@@ -39,10 +39,7 @@ export default function Login(props) {
         {
             localStorage.setItem('token',token);
             dispatch({type:IS_LOGGED_IN,payload:{isLoggedIn:true}});
-            if(redirectUrl)
-               props.history.push("/"+redirectUrl);
-            else
-               props.history.push("/");
+            window.location.href = "/";
         }
         else
         {

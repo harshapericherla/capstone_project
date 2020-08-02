@@ -8,28 +8,16 @@ import '../../assets/sass/header.scss';
 
 export default function Header(props) {
 
-    const [closeHamBurger,setCloseHamBurger] = useState(true);
     const dispatch = useDispatch();
     const {isLoggedIn} = useSelector(state => state.auth);
-    const history = useHistory();
     const logout = () => {
         localStorage.removeItem("token");
         dispatch({type:IS_LOGGED_IN,payload:{isLoggedIn:false}});
         dispatch({type:SELECT_JOB,payload:{}});
-        history.push("/");
+        window.location.href = "/";
     }
-
-    const toggle = () => {
-
-        let condition = closeHamBurger  ? false : true;
-        setCloseHamBurger(condition);
-    }
-
-    console.log(closeHamBurger);
 
     let innerHtml = "";
-
-    
     if(isLoggedIn)
     {
        innerHtml = 
@@ -39,6 +27,7 @@ export default function Header(props) {
                             <NavLink to="/">Home</NavLink>
                             <NavLink to="/createjob">Post a Job</NavLink>
                             <NavLink to="/appliedjobs">Applied Jobs</NavLink>
+                            <NavLink to="/jobsPosted">Jobs Posted</NavLink>
                         </div>
                         <button id = "btn" onClick={logout}>Logout</button>
                     </div>

@@ -1,4 +1,4 @@
-const {getJobs, createJob, createUserJob, checkIfJobApplied, getUserAppliedJobs, getJobById} = require('../resolvers/jobResolver');
+const {getJobs, createJob, createUserJob, checkIfJobApplied, getUserAppliedJobs, getJobById, getUserPostedJobs} = require('../resolvers/jobResolver');
 const {getUserById} = require('../resolvers/userResolver');
 const fs = require("fs");
 
@@ -9,6 +9,7 @@ exports.Job = `
         jobs(searchInput:JobInput): JobResult
         jobApplied(jobId: String!): JobAppliedResponse
         appliedJobs: JobApplyResult
+        jobsPosted: JobResult
     }
 
     extend type Mutation
@@ -56,6 +57,13 @@ exports.Job = `
     type JobApplyResult
     {
         jobs: [ApplyJob]!
+    }
+
+    type PostedJob
+    {
+        _id: ID!
+        jobID: String
+        job: Job
     }
 
     type ApplyJob
@@ -108,8 +116,13 @@ exports.JobResolver = {
         appliedJobs: async (_,__,{user}) => {
             let userAppliedJobs = await getUserAppliedJobs(user._id);
             let userJobs = {jobs:userAppliedJobs};
-            console.log(userJobs);
             return userJobs;
+        },
+        jobsPosted : async (_,__,{user}) => {
+            let postedJobs = await getUserPostedJobs(user._id);
+            let jobs = {jobs:postedJobs};
+            console.log(jobs);
+            return jobs;
         }
     },
     Mutation:{
@@ -118,20 +131,26 @@ exports.JobResolver = {
             return {"success":true};
         },
         applyJob: async(_,{file,jobId},{user}) => {
-
-            const { createReadStream, filename, mimetype, encoding } = await file;
-            const readStream = createReadStream();
-            fs.access(`files/${user._id}`, function(err) {
-                if (err && err.code === 'ENOENT') {
-                  fs.mkdir(`files/${user._id}`, function(){
-                     writeFile(readStream,user,filename,jobId);
-                  });
-                }
-                else
-                {
-                    writeFile(readStream,user,filename,jobId);
-                }
-            });
+            if(user && user._id)
+            {
+                const { createReadStream, filename, mimetype, encoding } = await file;
+                const readStream = createReadStream();
+                fs.access(`files/${user._id}`, function(err) {
+                    if (err && err.code === 'ENOENT') {
+                      fs.mkdir(`files/${user._id}`, function(){
+                         writeFile(readStream,user,filename,jobId);
+                      });
+                    }
+                    else
+                    {
+                        writeFile(readStream,user,filename,jobId);
+                    }
+                });
+            }
+            else
+            {
+                return {"success":false};
+            }
         }
     },
     Job : {

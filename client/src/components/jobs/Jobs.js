@@ -45,7 +45,7 @@ export const Jobs = (props) => {
             <div id ="flexContent">
                 <div class = "flexRow">
                     <div id = "pagination">
-                        <JobsList />
+                        <JobsList {...props} />
                     </div>
                     <JobDetails />    
                 </div>

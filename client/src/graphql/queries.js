@@ -57,3 +57,19 @@ query jobsApplied{
   }
 }
 `;
+
+export const JOBS_POSTED= gql`
+query jobsPosted{
+  jobsPosted{
+    jobs
+    {
+        _id
+        name
+        location
+        type
+        description
+        companyName
+    }
+  }
+}
+`;

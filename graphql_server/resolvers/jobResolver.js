@@ -116,4 +116,14 @@ exports.getUserAppliedJobs = async (userID) => {
     return userAppliedJobs;
 }
 
+exports.getUserPostedJobs = async (userID) => {
+    let userPostedJobs = [];
+    try{
+        userPostedJobs = await Job.find({_postedBy:userID});
+    }catch(error){
+        console.log(error);
+    }
+    return userPostedJobs;
+}
+
 

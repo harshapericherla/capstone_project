@@ -8,6 +8,7 @@ import Login from './components/auth/Login';
 import { Register } from './components/auth/Register';
 import { ApplyJob } from './components/jobs/ApplyJob';
 import { JobsApplied } from './components/jobs/JobsApplied';
+import { JobsPosted } from './components/jobs/JobsPosted';
 
 export default class App extends Component {
     render() {
@@ -20,6 +21,7 @@ export default class App extends Component {
                       <Route exact path="/applyjob" component = {ApplyJob} />
                       <Route exact path = "/createjob" component = {CreateJob} />
                       <Route exact path ="/appliedjobs" component = {JobsApplied} />
+                      <Route exact path ="/jobsPosted" component = {JobsPosted} />
                       <Route exact path = "/" component = {Jobs} />
                       <Route exact path ="/register" component = {Register} />
                   </Fragment>
