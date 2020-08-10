@@ -9,6 +9,7 @@ import { Register } from './components/auth/Register';
 import { ApplyJob } from './components/jobs/ApplyJob';
 import { JobsApplied } from './components/jobs/JobsApplied';
 import { JobsPosted } from './components/jobs/JobsPosted';
+import { ShowApplicants } from './components/jobs/ShowApplicants';
 
 export default class App extends Component {
     render() {
@@ -24,6 +25,7 @@ export default class App extends Component {
                       <Route exact path ="/jobsPosted" component = {JobsPosted} />
                       <Route exact path = "/" component = {Jobs} />
                       <Route exact path ="/register" component = {Register} />
+                      <Route exact path ="/listofapplicants/:jobId" component = {ShowApplicants} />
                   </Fragment>
                </BrowserRouter>
             </div>

@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 
+app.use(express.json());
 require('./mogo_schema/data_source');
 const {ApolloServer} = require('apollo-server-express');
 const typeDefs = require('./graphql_server/schema');
@@ -14,6 +15,12 @@ const server = new ApolloServer({
                 introspection: true,
                 playground: true
             });
+
+
+app.get("/download", (req,res) => {
+     const fileName = req.query.fileName;
+     res.download(fileName);
+});
 
 require("./auth/passport")(app);
 server.applyMiddleware({app});

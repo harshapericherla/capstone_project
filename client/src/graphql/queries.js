@@ -73,3 +73,21 @@ query jobsPosted{
   }
 }
 `;
+
+export const GET_APPLICANTS= gql`
+query getapplciants($jobId:String!){
+  postedJobsUsers(jobId:$jobId){
+    users
+    {
+        user{
+          _id
+          name
+        }
+        resumeLink
+    }
+  }
+}
+`;
+
+
+

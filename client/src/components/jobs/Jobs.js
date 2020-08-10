@@ -30,11 +30,7 @@ export const Jobs = (props) => {
         if(token && token.length > 0)
         {
             dispatch({type:IS_LOGGED_IN,payload:{isLoggedIn:true}});
-            console.log(params);
-            if(params && params.redirectUrl)
-               props.history.push("/"+params.redirectUrl);
-            else
-               props.history.push("/");
+            props.history.push("/");
         }
         dispatch({type:SELECT_JOB,payload:{}});
     },[]);

@@ -1,4 +1,4 @@
-const {getJobs, createJob, createUserJob, checkIfJobApplied, getUserAppliedJobs, getJobById, getUserPostedJobs} = require('../resolvers/jobResolver');
+const {getJobs, createJob, createUserJob, checkIfJobApplied, getUserAppliedJobs, getJobById, getUserPostedJobs, getPostedJobUsers} = require('../resolvers/jobResolver');
 const {getUserById} = require('../resolvers/userResolver');
 const fs = require("fs");
 
@@ -10,6 +10,7 @@ exports.Job = `
         jobApplied(jobId: String!): JobAppliedResponse
         appliedJobs: JobApplyResult
         jobsPosted: JobResult
+        postedJobsUsers(jobId: String!): PostedJobUsersResult
     }
 
     extend type Mutation
@@ -57,6 +58,19 @@ exports.Job = `
     type JobApplyResult
     {
         jobs: [ApplyJob]!
+    }
+
+
+    type PostedJobUsersResult
+    {
+        users: [PostedJobUser]
+    }
+
+    type PostedJobUser
+    {
+        userID: String
+        user: User
+        resumeLink: String
     }
 
     type PostedJob
@@ -123,6 +137,10 @@ exports.JobResolver = {
             let jobs = {jobs:postedJobs};
             console.log(jobs);
             return jobs;
+        },
+        postedJobsUsers: async (_,{jobId},{user}) => {
+            let postedJobUsers = await getPostedJobUsers(jobId);
+            return {users:postedJobUsers};
         }
     },
     Mutation:{
@@ -161,6 +179,11 @@ exports.JobResolver = {
     ApplyJob: {
         job : async({jobID}) => {
             return await getJobById(jobID);
+        }
+    },
+    PostedJobUser: {
+        user: async({userID}) => {
+            return await getUserById(userID);
         }
     }
 } 

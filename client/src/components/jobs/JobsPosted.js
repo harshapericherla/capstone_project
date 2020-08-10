@@ -2,18 +2,23 @@ import React, { useLayoutEffect } from 'react';
 import { JOBS_POSTED } from '../../graphql/queries';
 import { useLazyQuery } from '@apollo/react-hooks';
 import '../../../assets/sass/list.scss';
+import { useHistory } from 'react-router-dom';
 
 
 export const JobsPosted = () => {
 
+    const history = useHistory();
     const [jobsPostedQ, { data }] = useLazyQuery(JOBS_POSTED,{fetchPolicy:"network-only"});
     useLayoutEffect(() => {
         jobsPostedQ({variables:{}});;
     },[]);
 
+    const showApplicants = (jobId) => {
+         history.push(`/listofapplicants/${jobId}`);        
+    }
+
     let innerHtml = '';
 
-    console.log(data);
     if(data  && data.jobsPosted.jobs && data.jobsPosted.jobs.length > 0)
     {
         innerHtml = [];
@@ -46,6 +51,7 @@ export const JobsPosted = () => {
                         <span class="fa fa-clock-o"></span>
                         <span class = "time">6 hours ago</span>
                         </div>
+                        <div id="applicantsBtn" onClick={() => showApplicants(postedJob._id)}>Show Applicants</div>
                     </div>
                     </div>
                     </div>
