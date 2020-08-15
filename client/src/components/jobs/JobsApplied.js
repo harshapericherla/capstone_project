@@ -15,6 +15,7 @@ export const JobsApplied = () => {
 
     if(data && data.appliedJobs && data.appliedJobs.jobs && data.appliedJobs.jobs.length > 0)
     {
+        console.log(data.appliedJobs);
         innerHtml = [];
         innerHtml.push(data.appliedJobs.jobs.map((appliedJob) => {
             return (

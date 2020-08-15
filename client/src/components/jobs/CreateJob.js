@@ -34,18 +34,45 @@ export const CreateJob = (props) => {
     }
 
     return(
-        <div>
-            Name: <input ref={nameInput} /> <br/>
-            Location: <input ref={locationInput} /> <br/>
-            Type: <select ref={typeInput}>
+
+        <div class = "welcome">
+            <div id = "box">
+                <div class ="form_details">
+                <div class = "group">
+                        <input type="text" id="form_control" name="name" ref={nameInput}/>
+                        <label for="name">Name</label>
+                    </div>
+                    <div class = "group">
+                        <input type="text" id="form_control" name="location" ref={locationInput}/>
+                        <label for="location">Location</label>
+                    </div>
+                    Type: <select ref={typeInput}>
                         <option value="Part Time">Part Time</option>
                         <option value="Full Time">Full Time</option>
                     </select> <br/>
-            Description: <input ref={descInput} />  <br/>
-            Company: <input ref={companyInput} />  <br/>
-            Roles: <input ref={rolesInput} />  <br/>
-            Responsibilities: <input ref={responsibilitiesInput} />  <br/>
-            <button onClick={handleSubmit}>submit</button>
-        </div>  
+                    <div class = "group">
+                        <textarea id="form_control" name="desc" rows="4" cols="50" ref={descInput}/>
+                        <label for="desc">Description</label>
+                    </div>
+                    <div class = "group">
+                        
+                        <input type="text" id="form_control" name="companyname" ref={companyInput}/>
+                        <label for="companyname">Company</label>
+                    </div>
+                    
+                    <div class = "group">
+                        <textarea id="form_control" name="roles" rows="4" cols="50" ref={rolesInput}/>
+                        <label for="roles">Roles</label>
+                    </div>
+                    <div class = "group">
+                        <textarea id="form_control" name="responsibiltes" rows="4" cols="50" ref={responsibilitiesInput}/>
+                        <label for="responsibiltes">Responsibilities</label>
+                    </div>
+                    
+                    <br></br>
+                    <button onClick={handleSubmit}>submit</button>
+                </div>    
+            </div>
+        </div>
     );
 }
