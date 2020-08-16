@@ -49,7 +49,7 @@ export default function Login(props) {
 
     let googleUrl =  redirectUrl.length > 0 ? `/auth/google?redirectUrl=${redirectUrl}` : "/auth/google/";
     return (
-        <div>
+        <div class = "welcome">
            {message}
            <div id = "box">
                 <h1>Welcome Back</h1>

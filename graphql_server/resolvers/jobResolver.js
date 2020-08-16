@@ -112,7 +112,6 @@ exports.getUserAppliedJobs = async (userID) => {
     }catch(error){
         console.log(error);
     }
-    console.log(userAppliedJobs);
     return userAppliedJobs;
 }
 

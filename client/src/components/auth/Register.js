@@ -36,7 +36,7 @@ export const Register = () => {
     }
 
     return (
-        <div>
+        <div class = "welcome">
             {message} 
 
             <div id = "box">
