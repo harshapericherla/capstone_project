@@ -12,10 +12,8 @@ export const JobsApplied = () => {
     },[]);
 
     let innerHtml = '';
-
     if(data && data.appliedJobs && data.appliedJobs.jobs && data.appliedJobs.jobs.length > 0)
     {
-        console.log(data.appliedJobs);
         innerHtml = [];
         innerHtml.push(data.appliedJobs.jobs.map((appliedJob) => {
             return (
@@ -54,7 +52,7 @@ export const JobsApplied = () => {
                 );
         }));
     }
-    else if(data && data.appliedJobs && data.appliedJobs.length == 0)
+    else if(data && data.appliedJobs && data.appliedJobs.jobs.length == 0)
     {
         innerHtml = "No jobs applied";
     }

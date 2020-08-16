@@ -5,7 +5,6 @@ import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { setContext } from 'apollo-link-context';
 import { ApolloProvider } from "@apollo/react-hooks";
-import { HttpLink } from 'apollo-link-http';
 import {Provider} from 'react-redux';
 import {createStore,applyMiddleware} from 'redux';
 import reducers from './src/reducers';

@@ -1,9 +1,46 @@
 <html>
   <head>
       <meta name="viewport" content="width=device-width, initial-scale=1">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body>
       <div id="root"></div>
   </body>
+
+  <script>
+      $(document).ready(function(){
+          let location = window.location.href;
+          setInterval(() => {
+              let href = window.location.href;
+              if(href != location)
+              {
+                 location = href;
+                 $("input, textarea").blur(function(){
+                      let val = $(this).val();
+                      let label = $(this).siblings("label");
+                      if(val && val.trim() !== "")
+                      {                 
+                         label.css({"position":"absolute","top":"-10px","color":"#2196F3", "font-size":"12px"});
+                      }
+                      else
+                      {
+                         label.css({"position":"absolute","top":"10px","transition":"all .2s ease-out", "font-size":"16px", "left":"3px", "color" : "black"});
+                      }
+                     
+                 });
+
+                 $("input, textarea").focus(function(){
+                      let val = $(this).val();
+                      let label = $(this).siblings("label");
+                      if(!val || (val && val.trim() == ""))
+                      {                 
+                         label.css({"position":"absolute","top":"-10px","color":"#2196F3", "font-size":"12px"});
+                      }
+                 });
+              }
+          },10);
+          
+      });
+  </script>
 </html>

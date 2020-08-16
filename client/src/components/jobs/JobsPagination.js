@@ -15,6 +15,27 @@ export const JobsPagination = () => {
 
     const [jobsQ, {data }] = useLazyQuery(GET_JOBS);
 
+
+    const paginate= (e,direction) => {
+
+          e.preventDefault();
+          let activePage = pageActive ? pageActive : 1;
+          let updatedPageNum;
+          
+          if(direction === "left" && activePage > 0)
+          { 
+             updatedPageNum =  activePage - 1;                 
+          }
+          else if(direction === "right" && activePage < pagination)
+          {
+             updatedPageNum =  activePage + 1;   
+          }
+          if(updatedPageNum && updatedPageNum != activePage)
+          {
+              paginationClicked(e,updatedPageNum);
+          }
+    }
+
     const paginationClicked = (e,i) => {
         let {searchValue,searchLocation} = filter;
 
@@ -44,9 +65,9 @@ export const JobsPagination = () => {
     
     return (
         <div class="pagination">
-            <a href="#">&laquo;</a>
+            <a href="#" onClick={(e) => paginate(e,"left")}>&laquo;</a>
             {records}
-            <a href="#">&raquo;</a>
+            <a href="#" onClick={(e) => paginate(e,"right")}>&raquo;</a>
         </div>
     )
 }

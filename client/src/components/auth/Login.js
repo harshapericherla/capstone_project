@@ -17,10 +17,33 @@ export default function Login(props) {
     const emailInput = useRef("");
     const [tmpData,setTmpData] = useState(false);
 
+    const signInWithGoogle = (e) => {
+        e.preventDefault();
+        let googleUrl =  redirectUrl.length > 0 ? `/auth/google?redirectUrl=${redirectUrl}` : "/auth/google/";
+        window.location.href = googleUrl;
+    }
+
     const handleSubmit = () => {
         let password = passwordInput.current.value;
         let email = emailInput.current.value;
-        loginUserQ({variables:{userInput:{password,email}}});
+        let validationMsg = [];
+        if(!email || email.trim() == "")
+        {
+            validationMsg.push(<div className="validation">Please enter email to login</div>);
+        }
+        if(!password || password.trim() == "")
+        {
+           validationMsg.push(<div className="validation">Please enter password to login</div>);
+        }
+
+        if(validationMsg && validationMsg.length > 0)
+        {
+            setMessage(validationMsg);
+        }
+        else
+        {
+            loginUserQ({variables:{userInput:{password,email}}});
+        }
     }
 
     useLayoutEffect(() => {
@@ -28,6 +51,10 @@ export default function Login(props) {
         if(params.redirectUrl)
         {
             setRedirectUrl(params.redirectUrl);
+        }
+        if(params.message && params.message == "registerSuccess")
+        {
+            setMessage("Registration Successful, Login with new credentials");
         }
     },[])
 
@@ -47,12 +74,14 @@ export default function Login(props) {
         }
     }
 
-    let googleUrl =  redirectUrl.length > 0 ? `/auth/google?redirectUrl=${redirectUrl}` : "/auth/google/";
+    
     return (
         <div class = "welcome">
-           {message}
+            <div class="validation-message">
+                {message}
+            </div>
            <div id = "box">
-                <h1>Welcome Back</h1>
+                <h1>Sign In</h1>
                 <div class ="form_details">
                     <div class = "group">
                         <input type="email" id="form_control" name="email" ref={emailInput} ></input>
@@ -65,9 +94,7 @@ export default function Login(props) {
                     <input type="submit" id = "button" value="Submit" onClick={handleSubmit}></input>
                 </div>    
         </div>
-        <input type="submit" class="fa fa-google" value="Sign in with google"></input>
-
-           <a href={`${googleUrl}`}>Google SignIn</a>
+         <input type="submit" class="fa fa-google" value="Sign in with google" onClick={(e) => signInWithGoogle(e)}></input>
         </div>
     )
 }

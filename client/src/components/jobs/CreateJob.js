@@ -6,6 +6,7 @@ import { useMutation } from 'react-apollo';
 export const CreateJob = (props) => {
 
     const [createJobM, { data }] = useMutation(CREATE_JOB);
+    const [message, setMessage] = useState("");
 
     const nameInput = useRef("");
     const locationInput = useRef("");
@@ -24,8 +25,54 @@ export const CreateJob = (props) => {
          let companyName = companyInput.current.value;
          let roles = rolesInput.current.value;
          let responsibilities = responsibilitiesInput.current.value;
-         createJobM({variables:{createJobInput:{name,location,type,description,companyName,roles,responsibilities}}});
+
+         let validationArr = validate(name,location,type,description,companyName,roles,responsibilities);
+         if(validationArr.length > 0)
+         {
+            setMessage(validationArr);
+         }
+         else
+         {
+            createJobM({variables:{createJobInput:{name,location,type,description,companyName,roles,responsibilities}}});
+         }
     }
+
+    const validate = (name,location,type,description,companyName,roles,responsibilities) => {
+        
+        let validationArr = [];
+
+        if(!name || name.trim() == "")
+        {
+            validationArr.push(<div className="validation">Please enter name</div>);
+        }
+        if(!location || location.trim() == "")
+        {
+            validationArr.push(<div className="validation">Please enter location</div>);
+        }
+        if(!type || type.trim() == "")
+        {
+            validationArr.push(<div className="validation">Please enter type</div>);
+        }
+        if(!description || description.trim() == "")
+        {
+            validationArr.push(<div className="validation">Please enter description</div>);
+        }
+        if(!companyName || companyName.trim() == "")
+        {
+            validationArr.push(<div className="validation">Please enter company name</div>);
+        }
+        if(!roles || roles.trim() == "")
+        {
+            validationArr.push(<div className="validation">Please enter roles</div>);
+        }
+        if(!responsibilities || responsibilities.trim() == "")
+        {
+            validationArr.push(<div className="validation">Please enter responsibilities</div>);
+        }
+        
+        return validationArr;
+    };
+
 
     if(data && data != tmpData)
     {
@@ -36,6 +83,7 @@ export const CreateJob = (props) => {
     return(
 
         <div class = "welcome">
+            <div class="validation-message">{message}</div>
             <div id = "box">
                 <div class ="form_details">
                 <div class = "group">

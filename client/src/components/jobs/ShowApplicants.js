@@ -1,7 +1,6 @@
-import React, { Component, useLayoutEffect } from 'react'
+import React, { useLayoutEffect } from 'react'
 import { GET_APPLICANTS } from '../../graphql/queries';
 import { useLazyQuery } from 'react-apollo';
-import { Link } from 'react-router-dom';
 
 export const ShowApplicants = (props) => {
 

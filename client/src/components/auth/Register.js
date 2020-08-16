@@ -4,7 +4,7 @@ import { useMutation } from '@apollo/react-hooks';
 import '../../../assets/sass/login.scss';
 
 
-export const Register = () => {
+export const Register = (props) => {
 
 
     const [registerUserQ, { data }] = useMutation(REGISTER_USER);
@@ -13,21 +13,63 @@ export const Register = () => {
 
     const nameInput = useRef("");
     const passwordInput = useRef("");
+    const confirmPasswordInput = useRef("");
     const emailInput = useRef("");
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
         let name = nameInput.current.value;
         let password = passwordInput.current.value;
+        let confirmPassword = confirmPasswordInput.current.value;
         let email = emailInput.current.value;
-        registerUserQ({variables:{userInput:{name,password,email}}});
+
+        let validationArr = validate(name,email,password,confirmPassword);
+        if(validationArr && validationArr.length > 0)
+        {
+            setMessage(validationArr);
+        }
+        else
+        {
+            registerUserQ({variables:{userInput:{name,password,email}}});
+        }
     }
+
+
+    const validate = (name,email,password,confirmPassword) => {
+        
+        let validationArr = [];
+        let emailRegx = /\S+@\S+\.\S+/;
+
+        if(!name || name.trim() == "")
+        {
+            validationArr.push(<div className="validation">Please enter name</div>);
+        }
+        if(!email || email.trim() == "")
+        {
+            validationArr.push(<div className="validation">Please enter email</div>);
+        }
+        if(email && !emailRegx.test(email))
+        {
+            validationArr.push(<div className="validation">Please enter valid email format Ex: xxxx@xxx.xxx</div>);
+        }
+
+        if(!password || password.trim() == "")
+        {
+            validationArr.push(<div className="validation">Please enter password</div>);
+        }
+        if(password && password !== confirmPassword)
+        {
+            validationArr.push(<div className="validation">Please make sure that password and confirm password match</div>);
+        }
+        return validationArr;
+    };
 
     if(data && data.register && data != tmpData)
     {
         setTmpData(data);
         if(data.register.isRegistered)
         {
-            setMessage("Registration Successful");
+            props.history.push("/login?message=registerSuccess");
         }
         else
         {
@@ -37,11 +79,9 @@ export const Register = () => {
 
     return (
         <div class = "welcome">
-            {message} 
-
+            <div class="validation-message">{message}</div>
             <div id = "box">
-            <form action ="#">
-                <h1>Welcome Back</h1>
+                <h1>Register</h1>
                 <div class ="form_details">
                 <div class = "group">
                         <input type="text" id="form_control" name="name" ref={nameInput}/>
@@ -58,15 +98,12 @@ export const Register = () => {
                     </div>
                     <div class = "group">
                         
-                        <input type="password" id="form_control" name="confirm password" ref={passwordInput}/>
+                        <input type="password" id="form_control" name="confirm password" ref={confirmPasswordInput}/>
                         <label for="confirm password">Confirm Password</label>
                     </div><br></br>
-                    <input type="submit" id = "button" value="Submit" onClick={handleSubmit}/>
+                    <input type="submit" id = "button" value="Submit" onClick={(e) => handleSubmit(e)}/>
                 </div>    
-            </form>
-        </div>
-        <input type="submit" class="fa fa-google" value="Sign in with google"></input>
-
+            </div>
         </div>
     )
 }
