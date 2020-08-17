@@ -8,7 +8,7 @@ import { useHistory } from 'react-router-dom';
 export const JobsPosted = () => {
 
     const history = useHistory();
-    const [jobsPostedQ, { data }] = useLazyQuery(JOBS_POSTED,{fetchPolicy:"network-only"});
+    const [jobsPostedQ, { data }] = useLazyQuery(JOBS_POSTED,{fetchPolicy:"no-cache"});
     useLayoutEffect(() => {
         jobsPostedQ({variables:{}});;
     },[]);

@@ -3,7 +3,7 @@ import { useLazyQuery } from "@apollo/react-hooks";
 import {GET_JOBS} from '../../graphql/queries';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {FETCH_JOBS, FETCH_PAGINATION, SELECT_JOB} from '../../actions/types';
+import {FETCH_JOBS, FETCH_PAGINATION, SELECT_JOB, SEARCH_FILTER} from '../../actions/types';
 
 export const JobsList = () => {
 
@@ -12,9 +12,10 @@ export const JobsList = () => {
     const {jobs} = useSelector(state => state.jobs);
     const dispatch = useDispatch();
     const limit = parseInt(process.env.PAGINATION_LIMIT);
-    const [jobsQ, {data }] = useLazyQuery(GET_JOBS,{fetchPolicy:"network-only"});
+    const [jobsQ, {data }] = useLazyQuery(GET_JOBS,{fetchPolicy:"no-cache"});
 
     useLayoutEffect(() => {
+          dispatch({type:SEARCH_FILTER,payload:{filter:{}}});
           dispatch({type:SELECT_JOB,payload:{}});
           jobsQ({variables:{searchInput:{pageNum:1,pageLimit:limit,searchTxt:""}}});
     },[]);
