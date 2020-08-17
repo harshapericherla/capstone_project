@@ -39,8 +39,6 @@ export const ShowApplicants = (props) => {
     {
         innerHtml = "Loading...";
     }
-    console.log(data);
-
     return (
        <div>{innerHtml}</div>
     )

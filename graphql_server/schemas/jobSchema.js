@@ -1,6 +1,7 @@
 const {getJobs, createJob, createUserJob, checkIfJobApplied, getUserAppliedJobs, getJobById, getUserPostedJobs, getPostedJobUsers} = require('../resolvers/jobResolver');
 const {getUserById} = require('../resolvers/userResolver');
 const fs = require("fs");
+const path = require("path");
 
 exports.Job = `
     
@@ -100,15 +101,24 @@ exports.Job = `
         companyName:String
         roles:[String]
         responsibilities:[String]
+        postedDate:String
     }
 `;
 
+const getDir = () => {
+    let pathName = "files"
+    if(process.env.NODE_ENV !== 'production')
+    {
+        pathName = path.join(__dirname,pathName)
+    }
+    return pathName;
+}
+
 const writeFile = (readStream,user,filename,jobId) => {
-    const writable = fs.createWriteStream(`files/${user._id}/${filename}`);
+    const writable = fs.createWriteStream(`${getDir()}/${user._id}/${filename}`);
     readStream.pipe(writable);
     readStream.on("end", async function(){
-        await userAppliedJob(`files/${user._id}/${filename}`,user,jobId);
-        return {"success":true};
+        await userAppliedJob(`${getDir()}/${user._id}/${filename}`,user,jobId);
     });
 }
 
@@ -149,26 +159,30 @@ exports.JobResolver = {
             return {"success":true};
         },
         applyJob: async(_,{file,jobId},{user}) => {
-            if(user && user._id)
+            try
             {
-                const { createReadStream, filename, mimetype, encoding } = await file;
-                const readStream = createReadStream();
-                fs.access(`files/${user._id}`, function(err) {
-                    if (err && err.code === 'ENOENT') {
-                      fs.mkdir(`files/${user._id}`, function(){
-                         writeFile(readStream,user,filename,jobId);
-                      });
-                    }
-                    else
-                    {
-                        writeFile(readStream,user,filename,jobId);
-                    }
-                });
+                if(user && user._id)
+                {
+                    const { createReadStream, filename, mimetype, encoding } = await file;
+                    const readStream = createReadStream();
+                    fs.access(`${getDir()}/${user._id}`, function(err) {
+                        if (err && err.code === 'ENOENT') {
+                          fs.mkdir(`${getDir()}/${user._id}`, function(){
+                             writeFile(readStream,user,filename,jobId);
+                          });
+                        }
+                        else
+                        {
+                            writeFile(readStream,user,filename,jobId);
+                        }
+                    });
+                }
             }
-            else
+            catch(error)
             {
-                return {"success":false};
+                console.log(error);
             }
+            return {"success":false};
         }
     },
     Job : {

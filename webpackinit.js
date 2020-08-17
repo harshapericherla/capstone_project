@@ -15,9 +15,13 @@ module.exports = (app) => {
     }
     else
     {
-        app.use(express.static('dist'));
+        app.use(express.static('public/dist'));
         app.get('*', (req,res) => {
-            res.sendFile(path.join(__dirname,'dist/index.html'));
-        })
+            res.sendFile(path.join(__dirname,'index.html'));
+        });
+        process.on('uncaughtException', function (err) {
+            console.error(err.stack); // either logs on console or send to other server via api call.
+            process.exit(1)
+        });
     }
 }

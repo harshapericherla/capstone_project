@@ -3,10 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": "10.16.0",
+    "npm": "6.9.2"
+  },
   "scripts": {
     "start": "nodemon index.js",
     "clean": "rimraf dist",
-    "build": "npm run clean && webpack"
+    "build": "npm run clean && webpack",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "author": "",
   "license": "ISC",

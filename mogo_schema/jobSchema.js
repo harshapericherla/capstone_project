@@ -8,12 +8,10 @@ const jobSchema = new Schema({
         required: true,
         trim: true,
       },
-
       _postedBy : {
           type : Schema.Types.ObjectId,
           ref : 'userSchema',
       },
-     
       location : {
         type: String,
         required: true,
@@ -41,6 +39,10 @@ const jobSchema = new Schema({
         type: String,
         required: true,
         trim: true,
+      },
+      postedDate:{
+        type: String,
+        required: true
       }
 });
 

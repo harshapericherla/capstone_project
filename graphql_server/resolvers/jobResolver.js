@@ -60,7 +60,8 @@ exports.createJob = async ({name,location,type,description,companyName,roles,res
     let rolesArr = roles.split(";");
     let responsibilitiesArr = responsibilities.split(";");
     try{
-        let job = new Job({name,_postedBy:user._id,location,type,description,companyName,roles:rolesArr,responsibilities:responsibilitiesArr});
+        let postedDate = new Date().toISOString();
+        let job = new Job({name,_postedBy:user._id,location,type,description,companyName,roles:rolesArr,responsibilities:responsibilitiesArr,postedDate:postedDate});
         await job.save();
     }
     catch(error){

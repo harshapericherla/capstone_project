@@ -19,6 +19,7 @@ query jobQuery(
         _id
         name
       }
+      postedDate
     }
     pages
   }
@@ -52,6 +53,7 @@ query jobsApplied{
         companyName
         roles
         responsibilities
+        postedDate
       }
     }
   }
@@ -69,6 +71,7 @@ query jobsPosted{
         type
         description
         companyName
+        postedDate
     }
   }
 }

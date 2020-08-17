@@ -25,4 +25,4 @@ app.get("/download", (req,res) => {
 require("./auth/passport")(app);
 server.applyMiddleware({app});
 require('./webpackinit')(app);
-app.listen(5000);
+app.listen(process.env.PORT || 5000);
