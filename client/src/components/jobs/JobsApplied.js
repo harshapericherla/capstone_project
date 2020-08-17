@@ -12,6 +12,13 @@ export const JobsApplied = () => {
     },[]);
 
     let innerHtml = '';
+    let colors = ["#CD5C5C","#90EE90","#FFA07A","#778899","#BA55D3","#7B68EE","#9370DB","#C71585","#191970","#6B8E23","#DB7093","#FA8072"];
+    const randomColor = (firstCodeArg,secondCodeArg) => {
+      
+      let code = firstCodeArg + secondCodeArg;
+      let pos = code % colors.length - 1;
+      return colors[pos];
+    }
     if(data && data.appliedJobs && data.appliedJobs.jobs && data.appliedJobs.jobs.length > 0)
     {
         innerHtml = [];
@@ -22,8 +29,8 @@ export const JobsApplied = () => {
                     <div id = "cards">
                     <div class = "flex-card">
                         <div id = "circle">
-                        <div class = "circle">
-                            <span>A</span>
+                        <div class = "circle" style={{"background-color": randomColor(appliedJob.job.companyName.charCodeAt(0),appliedJob.job.companyName.charCodeAt(1))}}>
+                           <span>{appliedJob.job.companyName.substring(0,1)}</span>
                         </div>
                         <div class = "name">
                             <p>{appliedJob.job.companyName}</p>

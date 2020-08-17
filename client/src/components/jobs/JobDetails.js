@@ -11,6 +11,10 @@ export const JobDetails = () => {
     const [jobAppliedQ, {data}] = useLazyQuery(JOB_APPLIED,{fetchPolicy:"network-only"});
     const [selectedJobId,setSelectedJobId] = useState(""); 
 
+    useLayoutEffect(() => {
+        setSelectedJobId("");
+    },[]);
+
     if(selectedJob && selectedJob._id && selectedJob._id != selectedJobId)
     {
         jobAppliedQ({variables:{jobId:selectedJob._id}});

@@ -15,6 +15,7 @@ export const JobsList = () => {
     const [jobsQ, {data }] = useLazyQuery(GET_JOBS,{fetchPolicy:"network-only"});
 
     useLayoutEffect(() => {
+          dispatch({type:SELECT_JOB,payload:{}});
           jobsQ({variables:{searchInput:{pageNum:1,pageLimit:limit,searchTxt:""}}});
     },[]);
 
@@ -25,6 +26,14 @@ export const JobsList = () => {
         dispatch({type:FETCH_PAGINATION,payload:{pagination:data.jobs.pages}});
     }
 
+    let colors = ["#CD5C5C","#90EE90","#FFA07A","#778899","#BA55D3","#7B68EE","#9370DB","#C71585","#191970","#6B8E23","#DB7093","#FA8072"];
+    const randomColor = (firstCodeArg,secondCodeArg) => {
+      
+      let code = firstCodeArg + secondCodeArg;
+      let pos = code % colors.length - 1;
+      return colors[pos];
+    }
+
     return (
       <Fragment>
           <div>
@@ -33,8 +42,8 @@ export const JobsList = () => {
                   <div id = "cards">
                     <div class = "flex-card">
                       <div id = "circle">
-                        <div class = "circle">
-                          <span>A</span>
+                        <div class = "circle" style={{"background-color": randomColor(job.companyName.charCodeAt(0),job.companyName.charCodeAt(1))}}>
+                          <span>{job.companyName.substring(0,1)}</span>
                         </div>
                         <div class = "name">
                           <p>{job.companyName}</p>
