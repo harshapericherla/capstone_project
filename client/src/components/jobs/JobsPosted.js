@@ -71,7 +71,7 @@ export const JobsPosted = () => {
                 <div>
                     <div class = "listContent" >
                     <div id = "cards1">
-                    <div class = "flex-card1">
+                    <div class = "flex-card2">
                         <div id = "circle">
                         <div class = "circle" style={{"background-color": randomColor(postedJob.companyName.charCodeAt(0),postedJob.companyName.charCodeAt(1))}}>
                            <span>{postedJob.companyName.substring(0,1)}</span>
