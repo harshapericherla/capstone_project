@@ -1,10 +1,13 @@
 import React, { useLayoutEffect } from 'react'
 import { GET_APPLICANTS } from '../../graphql/queries';
 import { useLazyQuery } from 'react-apollo';
+import '../../../assets/sass/applicants.scss';
+
+
 
 export const ShowApplicants = (props) => {
 
-    const [jobsQ, {data }] = useLazyQuery(GET_APPLICANTS,{fetchPolicy:"network-only"});
+    const [jobsQ, {data }] = useLazyQuery(GET_APPLICANTS,{fetchPolicy:"no-cache"});
 
     useLayoutEffect(() => {
           let {jobId} = props.match.params;
@@ -19,14 +22,16 @@ export const ShowApplicants = (props) => {
         innerHtml.push(data.postedJobsUsers.users.map((user) => {
             return (
                 <div>
-                    <div class = "listContent" >
-                        <div id = "cards">
-                            <div class = "flex-card">
-                                {user.user.name}
-                                <a href={`/download?fileName=${user.resumeLink}`} target="_blank">Download</a>
-                            </div>
-                        </div>
-                    </div>
+                    <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Resume</th>
+                    </tr>
+                    <tr>
+                        <td>{user.user.name}</td>
+                        <td><a href={`/download?fileName=${user.resumeLink}`} target="_blank">Download</a></td>
+                    </tr>
+                    </table>
                 </div>
                 )
             }));
