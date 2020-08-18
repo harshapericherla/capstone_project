@@ -23,6 +23,7 @@ export default function Header(props) {
        innerHtml = 
                 <Fragment>
                     <div class = "head">
+                        <h1>Jobs Board</h1>
                         <div class = "nav">
                             <NavLink to="/">Home</NavLink>
                             <NavLink to="/createjob">Post a Job</NavLink>

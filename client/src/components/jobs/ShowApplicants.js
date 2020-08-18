@@ -17,25 +17,30 @@ export const ShowApplicants = (props) => {
     let innerHtml = '';
     if(data && data.postedJobsUsers && data.postedJobsUsers.users && data.postedJobsUsers.users.length > 0)
     {
-        innerHtml = [];
-        innerHtml.push(data.postedJobsUsers.users.map((user) => {
+        let innerHtmlArr = [];
+        innerHtmlArr.push(data.postedJobsUsers.users.map((user) => {
             return (
-                <div>
-                    <table>
-                    <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Resume</th>
-                    </tr>
+                <React.Fragment>
+
                     <tr>
                         <td>{user.user.name}</td>
                         <td>{user.user.email}</td>
                         <td><a href={`/download?fileName=${user.resumeLink}`} target="_blank">Download</a></td>
                     </tr>
-                    </table>
-                </div>
+
+                </React.Fragment>
                 )
             }));
+        innerHtml = <div>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Resume</th>
+            </tr>
+            {innerHtmlArr}
+        </table>
+    </div>;
     }
     else if(data && data.postedJobsUsers && data.postedJobsUsers.users.length == 0)
     {

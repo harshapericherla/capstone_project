@@ -107,6 +107,6 @@ export const JobsApplied = () => {
         innerHtml = "Loading...";
     }
     return (
-        <div>{innerHtml}</div>
+        <div id = "heading">{innerHtml}</div>
     );
 }
