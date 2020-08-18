@@ -14,7 +14,6 @@ export const ShowApplicants = (props) => {
           jobsQ({variables:{jobId}});
     },[]);
 
-
     let innerHtml = '';
     if(data && data.postedJobsUsers && data.postedJobsUsers.users && data.postedJobsUsers.users.length > 0)
     {
@@ -25,10 +24,12 @@ export const ShowApplicants = (props) => {
                     <table>
                     <tr>
                         <th>Name</th>
+                        <th>Email</th>
                         <th>Resume</th>
                     </tr>
                     <tr>
                         <td>{user.user.name}</td>
+                        <td>{user.user.email}</td>
                         <td><a href={`/download?fileName=${user.resumeLink}`} target="_blank">Download</a></td>
                     </tr>
                     </table>

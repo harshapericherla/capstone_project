@@ -3,5 +3,6 @@ exports.User = `
     {
         _id: ID!
         name: String
+        email: String
     }
 `;

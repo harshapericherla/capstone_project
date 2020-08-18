@@ -86,6 +86,7 @@ query getapplciants($jobId:String!){
         user{
           _id
           name
+          email
         }
         resumeLink
     }
