@@ -57,6 +57,7 @@
       margin-top: 55px;
       border-radius: 10px;
       outline: none;
+
     }
   }
   hr{
@@ -120,7 +121,6 @@
       outline: none;
     }
     button{
-      
       @include buttonColor(97%);
       margin: 6px;
       border-radius: 10px;
