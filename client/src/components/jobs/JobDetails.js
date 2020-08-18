@@ -8,7 +8,7 @@ export const JobDetails = () => {
     
     const history = useHistory();
     const selectedJob = useSelector(state => state.selectJob);
-    const [jobAppliedQ, {data}] = useLazyQuery(JOB_APPLIED,{fetchPolicy:"network-only"});
+    const [jobAppliedQ, {data}] = useLazyQuery(JOB_APPLIED,{fetchPolicy:"no-cache"});
     const [selectedJobId,setSelectedJobId] = useState(""); 
 
     useLayoutEffect(() => {

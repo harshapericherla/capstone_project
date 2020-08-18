@@ -70,8 +70,8 @@ export const JobsPosted = () => {
             return (
                 <div>
                     <div class = "listContent" >
-                    <div id = "cards">
-                    <div class = "flex-card">
+                    <div id = "cards1">
+                    <div class = "flex-card1">
                         <div id = "circle">
                         <div class = "circle" style={{"background-color": randomColor(postedJob.companyName.charCodeAt(0),postedJob.companyName.charCodeAt(1))}}>
                            <span>{postedJob.companyName.substring(0,1)}</span>
@@ -95,7 +95,7 @@ export const JobsPosted = () => {
                         <span class="fa fa-clock-o"></span>
                         <span class = "time">{displayPostedTime(postedJob.postedDate)}</span>
                         </div>
-                        <div id="applicantsBtn" onClick={() => showApplicants(postedJob._id)}>Show Applicants</div>
+                        <div id="applicantsBtn" onClick={() => showApplicants(postedJob._id)}><span>Show Applicants</span></div>
                     </div>
                     </div>
                     </div>
@@ -113,6 +113,6 @@ export const JobsPosted = () => {
         innerHtml = "Loading...";
     }
     return (
-        <div>{innerHtml}</div>
+        <div id = "heading">{innerHtml}</div>
     );
 }

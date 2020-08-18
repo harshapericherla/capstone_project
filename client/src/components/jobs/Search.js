@@ -10,7 +10,7 @@ export const Search = () => {
     const [searchValue,setSearchValue] = useState("");
     const [searchLocation,setSearchLocation] = useState("");
     const [tmpData,setTmpData] = useState(false);
-    const [searchQ, {data }] = useLazyQuery(GET_JOBS);
+    const [searchQ, {data }] = useLazyQuery(GET_JOBS,{fetchPolicy:"no-cache"});
     const dispatch = useDispatch();
 
     const searchJobs = () => {

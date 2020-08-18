@@ -6,7 +6,7 @@ import '../../../assets/sass/list.scss';
 
 export const JobsApplied = () => {
 
-    const [jobsAppliedQ, { data }] = useLazyQuery(JOBS_APPLIED,{fetchPolicy:"network-only"});
+    const [jobsAppliedQ, { data }] = useLazyQuery(JOBS_APPLIED,{fetchPolicy:"no-cache"});
     useLayoutEffect(() => {
         jobsAppliedQ({variables:{}});;
     },[]);
@@ -60,11 +60,12 @@ export const JobsApplied = () => {
     {
         innerHtml = [];
         innerHtml.push(data.appliedJobs.jobs.map((appliedJob) => {
+            
             return (
                 <div>
                     <div class = "listContent" >
-                    <div id = "cards">
-                    <div class = "flex-card">
+                    <div id = "cards1">
+                    <div class = "flex-card1">
                         <div id = "circle">
                         <div class = "circle" style={{"background-color": randomColor(appliedJob.job.companyName.charCodeAt(0),appliedJob.job.companyName.charCodeAt(1))}}>
                            <span>{appliedJob.job.companyName.substring(0,1)}</span>
@@ -94,6 +95,7 @@ export const JobsApplied = () => {
 
                 </div>
                 );
+            
         }));
     }
     else if(data && data.appliedJobs && data.appliedJobs.jobs.length == 0)
