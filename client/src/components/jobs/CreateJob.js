@@ -85,6 +85,7 @@ export const CreateJob = (props) => {
         <div class = "welcome">
             <div class="validation-message">{message}</div>
             <div id = "box">
+                <h1>Post a Job</h1>
                 <div class ="form_details">
                 <div class = "group">
                         <input type="text" id="form_control" name="name" ref={nameInput}/>

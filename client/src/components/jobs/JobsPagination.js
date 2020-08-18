@@ -13,7 +13,7 @@ export const JobsPagination = () => {
     const {filter} = useSelector(state => state.searchFilter)
     const dispatch = useDispatch();
 
-    const [jobsQ, {data }] = useLazyQuery(GET_JOBS);
+    const [jobsQ, {data }] = useLazyQuery(GET_JOBS,{fetchPolicy:"no-cache"});
 
 
     const paginate= (e,direction) => {

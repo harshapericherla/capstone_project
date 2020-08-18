@@ -8,7 +8,7 @@
         flex-basis: 45%;
         margin: 10px;
         padding: 2px 25px;
-        height: auto;
+        height: 50%;
         box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
         transition: 0.3s;
     }
@@ -23,6 +23,7 @@
     button{
         @include buttonColor(100%);
         border-radius: 10px;
+        margin-bottom: 20px;
     }
 
 }
@@ -31,6 +32,8 @@
 
    
     .showJobContent{
+        flex-wrap: wrap;
+
         flex-basis: 45%;
         margin: 10px;
         padding: 2px 25px;
@@ -49,6 +52,7 @@
     button{
         @include buttonColor(100%);
         border-radius: 10px;
+        margin-bottom: 20px;
     }
 }
 

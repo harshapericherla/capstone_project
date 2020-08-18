@@ -81,7 +81,7 @@ export const JobsList = () => {
                     <div class = "flex-card">
                       <div id = "circle">
                         <div class = "circle" style={{"background-color": randomColor(job.companyName.charCodeAt(0),job.companyName.charCodeAt(1))}}>
-                          <span>{job.companyName.substring(0,1)}</span>
+                          <span>{job.companyName.substring(0,1).toUpperCase()}</span>
                         </div>
                         <div class = "name">
                           <p>{job.companyName}</p>

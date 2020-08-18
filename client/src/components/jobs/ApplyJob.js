@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { APPLY_JOB } from '../../graphql/mutations';
 import { useMutation } from 'react-apollo';
 import { SELECT_JOB } from '../../actions/types';
-
+import '../../../assets/sass/applyjob.scss';
 
 export const ApplyJob = (props) => {
     
@@ -45,13 +45,21 @@ export const ApplyJob = (props) => {
     }
 
     return (
-        <div>
+        <div class = "flex-body">
             <div class="validation-message">{message}</div>
-            Job Name: {selectedJob.name} <br/>
-            Job Location: {selectedJob.location} <br/>
-            Job Type: {selectedJob.type} <br/>
-            <input type="file" ref={fileRef} />
-            <button onClick={applyJob}>Apply Job</button>
+            <div class = "apply-flex">
+                <div class = "flex-group">
+                <p>Job Name: </p><span>{selectedJob.name} </span></div>
+                <div class = "flex-group">
+                <p>Job Location: </p><span>{selectedJob.location}</span></div>
+                <div class = "flex-group">
+                <p>Job Type: </p><span>{selectedJob.type}</span></div>
+                <input type="file" id ="btn1" ref={fileRef} />
+            </div>
+            <div class = "btn1">
+            <button id= "btn1" onClick={applyJob}>Apply Job</button>
+            </div>
+
         </div>
     );
 }
