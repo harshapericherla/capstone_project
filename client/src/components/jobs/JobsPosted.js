@@ -25,6 +25,44 @@ export const JobsPosted = () => {
       let pos = code % colors.length - 1;
       return colors[pos];
     }
+
+    const displayPostedTime = (postedDate) => {
+
+        let currentDate = new Date();
+        let postedDateUtc = new Date(postedDate);
+        if(postedDate)
+        {
+            let diffTime = Math.abs(currentDate - postedDateUtc);
+            let minutes = Math.floor(diffTime / 60000);
+            if(minutes >= 60)
+            {
+                let hours = Math.floor(minutes / 60);   
+                if(hours >= 24)
+                {
+                    let days = Math.floor(hours / 24);  
+                    if(days == 1)
+                        return `Posted ${days} day ago`;
+                    else
+                        return `Posted ${days} days ago`;
+                }
+                if(hours == 1)
+                    return `Posted ${hours} hour ago`;
+                else
+                     return `Posted ${hours} hours ago`;
+            }
+            if(minutes < 1)
+            {
+               let seconds = Math.floor(diffTime / 1000);
+               return `Posted ${seconds} seconds ago`;
+            }
+            else if(minutes == 1)
+               return `Posted ${minutes} minute ago`;
+            else
+               return `Posted ${minutes} minutes ago`;
+        }
+        return " ";
+    }
+
     if(data  && data.jobsPosted.jobs && data.jobsPosted.jobs.length > 0)
     {
         innerHtml = [];
@@ -55,7 +93,7 @@ export const JobsPosted = () => {
                         <span class ="fa fa-suitcase"></span>
                         <span class = "jobtype">{postedJob.type}</span>
                         <span class="fa fa-clock-o"></span>
-                        <span class = "time">6 hours ago</span>
+                        <span class = "time">{displayPostedTime(postedJob.postedDate)}</span>
                         </div>
                         <div id="applicantsBtn" onClick={() => showApplicants(postedJob._id)}>Show Applicants</div>
                     </div>

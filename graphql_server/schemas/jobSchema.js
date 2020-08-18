@@ -88,6 +88,7 @@ exports.Job = `
         jobID: String
         resumeLink: String
         job: Job
+        appliedDate:String
     }
 
     type Job
@@ -106,11 +107,7 @@ exports.Job = `
 `;
 
 const getDir = () => {
-    let pathName = "files"
-    if(process.env.NODE_ENV !== 'production')
-    {
-        pathName = path.join(__dirname,pathName)
-    }
+    let pathName = "files";
     return pathName;
 }
 

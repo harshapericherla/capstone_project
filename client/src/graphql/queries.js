@@ -55,6 +55,7 @@ query jobsApplied{
         responsibilities
         postedDate
       }
+      appliedDate
     }
   }
 }

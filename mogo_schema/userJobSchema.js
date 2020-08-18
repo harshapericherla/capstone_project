@@ -13,6 +13,10 @@ const userJobSchema = new Schema({
     resumeLink:{
       type: String,
       required: true
+    },
+    appliedDate : {
+      type: String,
+      require: true
     }
 });
 mongoose.model('UserJob',userJobSchema);

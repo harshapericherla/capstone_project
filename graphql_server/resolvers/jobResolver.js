@@ -71,9 +71,8 @@ exports.createJob = async ({name,location,type,description,companyName,roles,res
 
 exports.createUserJob = async (dir,userId,jobId) => {
     try{
-        let userJob = new UserJob({userID:userId,jobID:jobId,resumeLink:dir});
-
-        console.log(userId,jobId,dir);
+        let appliedDate = new Date().toISOString();
+        let userJob = new UserJob({userID:userId,jobID:jobId,resumeLink:dir,appliedDate:appliedDate});
         await userJob.save();
     }
     catch(error){
